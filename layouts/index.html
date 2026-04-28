@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EryIT - IT-support i Sverige</title>
+  <meta name="description" content="Professionell IT-support, WiFi-installation i Sverige. Snabb och prisvärd hjälp för hem och företag.">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+
+
+
+<nav>
+  <div class="logo">
+    <img src="/images/logo.png" alt="EryIT Logo" onerror="this.style.display='none'">
+    <div class="logo-text">Ery<span>IT</span>-Support</div>
+  </div>
+  <div class="nav-links">
+    <a href="#tjanster"><span class="sv-text">Tjänster</span><span class="en-text" style="display:none">Services</span></a>
+    <a href="#om-oss"><span class="sv-text">Om oss</span><span class="en-text" style="display:none">About us</span></a>
+    <a href="#kontakt"><span class="sv-text">Kontakt</span><span class="en-text" style="display:none">Contact</span></a>
+  </div>
+  <button class="nav-cta" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
+    <span class="sv-text">Boka nu</span><span class="en-text" style="display:none">Book now</span>
+  </button>
+</nav>
+
+<div class="lang-bar">
+  <span>Välj språk / Language:</span>
+  <button class="lang-btn active" onclick="setLang('sv')">🇸🇪 Svenska</button>
+  <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+
+
+<section class="hero">
+  <div class="hero-grid-bg"></div>
+  <canvas id="heroCanvas" style="position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;"></canvas>
+  <div class="hero-content">
+    <div class="hero-badge">
+      <span class="dot"></span>
+      <span class="sv-text">Tillgänglig i hela Sverige</span>
+      <span class="en-text" style="display:none">Available across Sweden</span>
+    </div>
+    <h1>
+      <span class="sv-text">Snabb, pålitlig<br><em>IT-hjälp</em> - nära dig</span>
+      <span class="en-text" style="display:none">Fast, reliable<br><em>IT help</em> - near you</span>
+    </h1>
+    <p class="hero-sub">
+      <span class="sv-text">Vi fixar datorer, installerar WiFi och sätter upp nätverk - för hem och företag i hela Sverige.</span>
+      <span class="en-text" style="display:none">We fix computers, install WiFi and set up networks - for homes and businesses across Sweden.</span>
+    </p>
+    <div class="hero-btns">
+      <button class="btn-g" onclick="document.getElementById('kontakt').scrollIntoView({behavior:'smooth'})">
+        <span class="sv-text">Boka en tjänst</span>
+        <span class="en-text" style="display:none">Book a service</span>
+      </button>
+      <button class="btn-o" onclick="document.getElementById('tjanster').scrollIntoView({behavior:'smooth'})">
+        <span class="sv-text">Våra tjänster</span>
+        <span class="en-text" style="display:none">Our services</span>
+      </button>
+    </div>
+    <div class="stats">
+      <div class="stat">
+        <div class="stat-num">48h</div>
+        <div class="stat-lbl"><span class="sv-text">Svarstid</span><span class="en-text" style="display:none">Response time</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">100%</div>
+        <div class="stat-lbl"><span class="sv-text">Nöjda kunder</span><span class="en-text" style="display:none">Happy customers</span></div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">SE</div>
+        <div class="stat-lbl"><span class="sv-text">Baserade i Sverige</span><span class="en-text" style="display:none">Based in Sweden</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="tjanster">
+  <div class="sec-label"><span class="sv-text">Vad vi erbjuder</span><span class="en-text" style="display:none">What we offer</span></div>
+  <div class="sec-title"><span class="sv-text">Våra tjänster</span><span class="en-text" style="display:none">Our services</span></div>
+  <div class="svc-grid">
+    <div class="svc-card">
+      <div class="svc-ico ic-g">🖥</div>
+      <h3><span class="sv-text">IT-support</span><span class="en-text" style="display:none">IT Support</span></h3>
+      <p><span class="sv-text">Hjälp på plats eller distans med dator, skrivare eller programvara.</span><span class="en-text" style="display:none">On-site or remote help with your computer, printer or software.</span></p>
+      <div class="svc-price">Från 499 kr / besök</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ic-b">📶</div>
+      <h3>WiFi & Internet</h3>
+      <p><span class="sv-text">Routerinställning, WiFi-förstärkare och nätverksinstallation.</span><span class="en-text" style="display:none">Router setup, WiFi boosters and network installation.</span></p>
+      <div class="svc-price">Från 699 kr</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ic-a">🔧</div>
+      <h3><span class="sv-text">Hårdvaruinstallation</span><span class="en-text" style="display:none">Hardware Installation</span></h3>
+      <p><span class="sv-text">Installation av datorer, skärmar och skrivare hos dig.</span><span class="en-text" style="display:none">Installation of computers, screens and printers at your location.</span></p>
+      <div class="svc-price">Från 599 kr</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ic-p">🛡</div>
+      <h3><span class="sv-text">Säkerhet & Backup</span><span class="en-text" style="display:none">Security & Backup</span></h3>
+      <p><span class="sv-text">Virusborttagning, antivirusskydd och molnsäkerhetskopiering.</span><span class="en-text" style="display:none">Virus removal, antivirus protection and cloud backup.</span></p>
+      <div class="svc-price">Från 399 kr</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ic-t">💬</div>
+      <h3><span class="sv-text">Onlinesupport</span><span class="en-text" style="display:none">Remote Support</span></h3>
+      <p><span class="sv-text">Videomöte eller chatt — vi löser ditt IT-problem på distans.</span><span class="en-text" style="display:none">Video call or chat — we solve your IT problem remotely.</span></p>
+      <div class="svc-price">Från 299 kr / timme</div>
+    </div>
+    <div class="svc-card">
+      <div class="svc-ico ic-r">🏢</div>
+      <h3><span class="sv-text">Företags-IT</span><span class="en-text" style="display:none">Business IT</span></h3>
+      <p><span class="sv-text">Månadsavtal för IT-support till småföretag — vi tar hand om allt.</span><span class="en-text" style="display:none">Monthly IT support for small businesses — we handle everything.</span></p>
+      <div class="svc-price">Från 1 499 kr / mån</div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-label"><span class="sv-text">Enkel process</span><span class="en-text" style="display:none">Simple process</span></div>
+  <div class="sec-title"><span class="sv-text">Så här fungerar det</span><span class="en-text" style="display:none">How it works</span></div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h4><span class="sv-text">Kontakta oss</span><span class="en-text" style="display:none">Contact us</span></h4>
+        <p><span class="sv-text">Skicka ett meddelande eller ring. Vi svarar på svenska eller engelska.</span><span class="en-text" style="display:none">Send a message or call. We reply in Swedish or English.</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h4><span class="sv-text">Vi bestämmer en tid</span><span class="en-text" style="display:none">We agree on a time</span></h4>
+        <p><span class="sv-text">Vi bekräftar en tid som passar dig — ofta samma dag eller nästa dag.</span><span class="en-text" style="display:none">We confirm a time that suits you — often same day or next day.</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h4><span class="sv-text">Vi fixar det</span><span class="en-text" style="display:none">We fix it</span></h4>
+        <p><span class="sv-text">Vår tekniker kommer i tid, löser problemet och förklarar vad som gjordes.</span><span class="en-text" style="display:none">Our technician arrives on time, solves the problem and explains what was done.</span></p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h4><span class="sv-text">Du betalar när du är nöjd</span><span class="en-text" style="display:none">Pay only when satisfied</span></h4>
+        <p><span class="sv-text">Tydlig prissättning, inga dolda avgifter.</span><span class="en-text" style="display:none">Clear pricing, no hidden fees.</span></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-label"><span class="sv-text">Varför EryIT</span><span class="en-text" style="display:none">Why EryIT</span></div>
+  <div class="sec-title"><span class="sv-text">Varför välja oss?</span><span class="en-text" style="display:none">Why choose us?</span></div>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <h4><span class="sv-text">Lokalt & snabbt</span><span class="en-text" style="display:none">Local & fast</span></h4>
+      <p><span class="sv-text">Vi är baserade i Sverige. Snabbt svar — ingen lång väntetid.</span><span class="en-text" style="display:none">Based in Sweden. Fast response — no long waiting time.</span></p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <h4><span class="sv-text">Tydliga priser</span><span class="en-text" style="display:none">Clear pricing</span></h4>
+      <p><span class="sv-text">Inga överraskningar. Du vet alltid priset innan vi börjar.</span><span class="en-text" style="display:none">No surprises. You always know the price before we start.</span></p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <h4><span class="sv-text">Svenska & engelska</span><span class="en-text" style="display:none">Swedish & English</span></h4>
+      <p><span class="sv-text">Vi kommunicerar på båda språken — utan teknisk jargong.</span><span class="en-text" style="display:none">We communicate in both languages — no tech jargon.</span></p>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <h4><span class="sv-text">Hem & företag</span><span class="en-text" style="display:none">Homes & businesses</span></h4>
+      <p><span class="sv-text">Vi hjälper privatpersoner och småföretag — inget uppdrag är för litet.</span><span class="en-text" style="display:none">We help private people and small businesses — no job too small.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="om-oss">
+  <div class="sec-label"><span class="sv-text">Vår historia</span><span class="en-text" style="display:none">Our story</span></div>
+  <div class="sec-title"><span class="sv-text">Om EryIT</span><span class="en-text" style="display:none">About EryIT</span></div>
+  <div class="about-box">
+    <div class="about-avatar">E</div>
+    <div>
+      <h3><span class="sv-text">Ett IT-företag byggt för riktiga människor</span><span class="en-text" style="display:none">An IT company built for real people</span></h3>
+      <p><span class="sv-text">EryIT grundades med ett mål: att göra IT-tjänster enkla, prisvärda och tillgängliga för alla i Sverige. Vi tror att tekniken ska fungera för dig, inte tvärtom. Oavsett om du är en familj med en trasig dator eller ett företag som behöver löpande IT-stöd, finns vi här.</span><span class="en-text" style="display:none">EryIT was founded with one goal: to make IT services simple, affordable and accessible for everyone in Sweden. We believe technology should work for you, not the other way around. Whether you are a family with a broken computer or a business needing ongoing IT support, we are here.</span></p>
+    </div>
+  </div>
+</section>
+
+<section class="sec">
+  <div class="sec-label"><span class="sv-text">Kundrecensioner</span><span class="en-text" style="display:none">Customer reviews</span></div>
+  <div class="sec-title"><span class="sv-text">Vad folk säger</span><span class="en-text" style="display:none">What people say</span></div>
+  <div class="reviews">
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p><span class="sv-text">"Fixade mitt WiFi på mindre än en timme. Mycket professionellt och förklarade allt tydligt."</span><span class="en-text" style="display:none">"Fixed my WiFi in less than an hour. Very professional and explained everything clearly."</span></p>
+      <div class="reviewer">Anna K. <span>— Göteborg</span></div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p><span class="sv-text">"Installerade hela kontorsnätverket. Snabbt, prisvärt och kom nästa dag."</span><span class="en-text" style="display:none">"Set up our whole office network. Fast, affordable and came the next day."</span></p>
+      <div class="reviewer">Marcus L. <span>— Stockholm</span></div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p><span class="sv-text">"Tog bort ett virus och installerade backup. Utmärkt service till bra pris."</span><span class="en-text" style="display:none">"Removed a virus and set up backup. Excellent service at a fair price."</span></p>
+      <div class="reviewer">Sara P. <span>— Malmö</span></div>
+    </div>
+    <div class="review">
+      <div class="stars">★★★★★</div>
+      <p><span class="sv-text">"Äntligen ett IT-företag som pratar vanlig svenska och inte tar för mycket betalt."</span><span class="en-text" style="display:none">"Finally an IT company that speaks plain language and does not overcharge."</span></p>
+      <div class="reviewer">Erik B. <span>— Göteborg</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="kontakt">
+  <div class="contact-wrap">
+    <h3><span class="sv-text">Kontakta oss idag</span><span class="en-text" style="display:none">Contact us today</span></h3>
+    <p><span class="sv-text">Vi svarar inom några timmar — på svenska eller engelska.</span><span class="en-text" style="display:none">We reply within a few hours — in Swedish or English.</span></p>
+    <div class="form-row">
+      <input type="text" placeholder="Ditt namn / Your name" />
+      <input type="text" placeholder="Telefon / Phone" />
+    </div>
+    <div class="form-row">
+      <input type="email" placeholder="E-post / Email" />
+      <input type="text" placeholder="Stad / City" />
+    </div>
+    <div class="form-full">
+      <textarea placeholder="Berätta vad du behöver / Tell us what you need..."></textarea>
+    </div>
+    <button class="btn-g" style="width:100%;padding:15px;font-size:15px;">
+      <span class="sv-text">Skicka meddelande</span><span class="en-text" style="display:none">Send message</span>
+    </button>
+    <div class="contact-info">
+      <div class="cinfo">
+        <div class="cinfo-ico">📧</div>
+        <div class="cinfo-lbl">E-post / Email</div>
+        <div class="cinfo-val">info@eryit.se</div>
+      </div>
+      <div class="cinfo">
+        <div class="cinfo-ico">📍</div>
+        <div class="cinfo-lbl"><span class="sv-text">Plats</span><span class="en-text" style="display:none">Location</span></div>
+        <div class="cinfo-val">Göteborg, Sverige</div>
+      </div>
+      <div class="cinfo">
+        <div class="cinfo-ico">🕐</div>
+        <div class="cinfo-lbl"><span class="sv-text">Öppettider</span><span class="en-text" style="display:none">Hours</span></div>
+        <div class="cinfo-val">Mån–Fre 8–18</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="/images/logo.png" alt="EryIT Logo" onerror="this.style.display='none'">
+      <div class="footer-logo-text">Ery<span>IT</span>.se</div>
+    </div>
+    <div class="footer-links">
+      <a href="#tjanster"><span class="sv-text">Tjänster</span><span class="en-text" style="display:none">Services</span></a>
+      <a href="#om-oss"><span class="sv-text">Om oss</span><span class="en-text" style="display:none">About</span></a>
+      <a href="#kontakt">Kontakt</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 EryIT.se — <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
+</footer>
+
+<script>
+function setLang(lang) {
+  var svItems = document.querySelectorAll('.sv-text');
+  var enItems = document.querySelectorAll('.en-text');
+  var btns = document.querySelectorAll('.lang-btn');
+  var i;
+  if (lang === 'sv') {
+    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'inline'; }
+    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'none'; }
+    btns[0].classList.add('active');
+    btns[1].classList.remove('active');
+    document.documentElement.lang = 'sv';
+  } else {
+    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'none'; }
+    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'inline'; }
+    btns[0].classList.remove('active');
+    btns[1].classList.add('active');
+    document.documentElement.lang = 'en';
+  }
+}
+setLang('sv');
+</script>
+
+
+
+
+<script>
+const canvas = document.getElementById('heroCanvas');
+const ctx = canvas.getContext('2d');
+
+function resize() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+const nodeCount = 28;
+const nodes = [];
+for (let i = 0; i < nodeCount; i++) {
+  nodes.push({
+    x: Math.random() * canvas.width,
+    y: Math.random() * canvas.height,
+    vx: (Math.random() - 0.5) * 0.4,
+    vy: (Math.random() - 0.5) * 0.4,
+    r: Math.random() * 2.5 + 1.5,
+    pulse: Math.random() * Math.PI * 2,
+    type: Math.floor(Math.random() * 3)
+  });
+}
+
+const packets = [];
+for (let i = 0; i < 12; i++) {
+  packets.push({
+    progress: Math.random(),
+    fromIdx: Math.floor(Math.random() * nodeCount),
+    toIdx: Math.floor(Math.random() * nodeCount),
+    speed: 0.003 + Math.random() * 0.004,
+    color: Math.random() > 0.5 ? '#1D9E75' : '#4a9eff'
+  });
+}
+
+const clouds = [
+  {x:0.15, y:0.25, r:80, vx:0.12, vy:0.04, color:'rgba(29,158,117,0.04)'},
+  {x:0.75, y:0.6, r:100, vx:-0.08, vy:0.06, color:'rgba(29,158,117,0.05)'},
+  {x:0.5, y:0.15, r:70, vx:0.06, vy:0.08, color:'rgba(74,158,255,0.04)'},
+  {x:0.85, y:0.2, r:60, vx:-0.1, vy:0.05, color:'rgba(29,158,117,0.03)'},
+];
+
+function draw() {
+  canvas.width = canvas.offsetWidth;
+  canvas.height = canvas.offsetHeight;
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  clouds.forEach(c => {
+    c.x += c.vx * 0.001;
+    c.y += c.vy * 0.001;
+    if (c.x < -0.2) c.x = 1.2;
+    if (c.x > 1.2) c.x = -0.2;
+    if (c.y < -0.2) c.y = 1.2;
+    if (c.y > 1.2) c.y = -0.2;
+    const grd = ctx.createRadialGradient(
+      c.x*canvas.width, c.y*canvas.height, 0,
+      c.x*canvas.width, c.y*canvas.height, c.r*(canvas.width/600)
+    );
+    grd.addColorStop(0, c.color);
+    grd.addColorStop(1, 'transparent');
+    ctx.beginPath();
+    ctx.arc(c.x*canvas.width, c.y*canvas.height, c.r*(canvas.width/600), 0, Math.PI*2);
+    ctx.fillStyle = grd;
+    ctx.fill();
+  });
+
+  nodes.forEach(n => {
+    n.x += n.vx;
+    n.y += n.vy;
+    n.pulse += 0.03;
+    if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
+    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+  });
+
+  for (let i = 0; i < nodes.length; i++) {
+    for (let j = i+1; j < nodes.length; j++) {
+      const dx = nodes[i].x - nodes[j].x;
+      const dy = nodes[i].y - nodes[j].y;
+      const dist = Math.sqrt(dx*dx + dy*dy);
+      if (dist < 130) {
+        const alpha = (1 - dist/130) * 0.25;
+        ctx.beginPath();
+        ctx.moveTo(nodes[i].x, nodes[i].y);
+        ctx.lineTo(nodes[j].x, nodes[j].y);
+        ctx.strokeStyle = 'rgba(29,158,117,'+alpha+')';
+        ctx.lineWidth = 0.8;
+        ctx.stroke();
+      }
+    }
+  }
+
+  packets.forEach(p => {
+    p.progress += p.speed;
+    if (p.progress >= 1) {
+      p.progress = 0;
+      p.fromIdx = p.toIdx;
+      p.toIdx = Math.floor(Math.random() * nodeCount);
+    }
+    const from = nodes[p.fromIdx];
+    const to = nodes[p.toIdx];
+    const px = from.x + (to.x - from.x) * p.progress;
+    const py = from.y + (to.y - from.y) * p.progress;
+    ctx.beginPath();
+    ctx.arc(px, py, 2.5, 0, Math.PI*2);
+    ctx.fillStyle = p.color;
+    ctx.shadowBlur = 8;
+    ctx.shadowColor = p.color;
+    ctx.fill();
+    ctx.shadowBlur = 0;
+  });
+
+  nodes.forEach(n => {
+    const pulse = Math.sin(n.pulse) * 0.5 + 0.5;
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r+3+pulse*2, 0, Math.PI*2);
+    ctx.fillStyle = 'rgba(29,158,117,'+(0.05+pulse*0.08)+')';
+    ctx.fill();
+    ctx.beginPath();
+    ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
+    if (n.type === 0) ctx.fillStyle = '#1D9E75';
+    else if (n.type === 1) ctx.fillStyle = '#4a9eff';
+    else ctx.fillStyle = '#ffffff';
+    ctx.globalAlpha = 0.7 + pulse*0.3;
+    ctx.fill();
+    ctx.globalAlpha = 1;
+  });
+
+  requestAnimationFrame(draw);
+}
+draw();
+</script>
+
+
+</body>
+</html>
