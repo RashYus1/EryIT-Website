@@ -1,10 +1,8 @@
 baseURL = 'https://eryit.se/'
 languageCode = 'sv-se'
-title = 'EryIT — IT-support & IT-jobb i Sverige'
-theme = ''
+title = 'EryIT Support — IT-support i Sverige'
 
 [params]
-  description = 'Professionell IT-support, WiFi-installation och IT-jobb i Sverige. Vi hjälper hem och företag.'
-  email = 'hello@eryit.se'
-  phone = '+46 70 000 00 00'
+  description = 'Professionell IT-support, WiFi-installation i Sverige.'
+  email = 'info@eryit.se'
   city = 'Göteborg, Sverige'
