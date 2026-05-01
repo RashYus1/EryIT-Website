@@ -1,0 +1,658 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EryIT Admin — Ticket System</title>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{font-family:Arial,sans-serif;background:#0a1628;color:#fff;min-height:100vh;}
+    .lang-bar{display:flex;justify-content:flex-end;align-items:center;gap:8px;padding:7px 32px;background:#060f1e;border-bottom:1px solid #1a2f4a;font-size:12px;color:#7a90a0;}
+    .lang-btn{padding:3px 12px;border-radius:20px;border:1px solid #2a4060;background:transparent;font-size:12px;cursor:pointer;color:#7a90a0;font-family:Arial,sans-serif;}
+    .lang-btn.active{background:#1D9E75;color:#fff;border-color:#1D9E75;}
+    .login-wrap{display:flex;align-items:center;justify-content:center;min-height:calc(100vh - 37px);padding:20px;}
+    .login-box{background:#0d2137;border:1px solid #1a3050;border-radius:16px;padding:40px 32px;width:100%;max-width:380px;text-align:center;}
+    .login-logo{font-size:28px;font-weight:900;margin-bottom:6px;}
+    .login-logo span{color:#1D9E75;}
+    .login-sub{font-size:13px;color:#7a90a0;margin-bottom:28px;}
+    .login-box input{width:100%;padding:12px 16px;border-radius:9px;border:1px solid #1a3050;background:rgba(255,255,255,0.07);color:#fff;font-family:Arial,sans-serif;font-size:14px;margin-bottom:12px;}
+    .login-box input::placeholder{color:#5a7080;}
+    .login-btn{width:100%;padding:13px;background:#1D9E75;color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:bold;font-family:Arial,sans-serif;cursor:pointer;}
+    .login-btn:hover{background:#0F6E56;}
+    .login-error{color:#ff6b6b;font-size:13px;margin-top:10px;display:none;}
+    .admin-wrap{display:none;}
+    .topbar{display:flex;align-items:center;justify-content:space-between;padding:14px 32px;background:#0d2137;border-bottom:1px solid #1a3050;position:sticky;top:37px;z-index:100;}
+    .topbar-logo{font-size:20px;font-weight:900;}
+    .topbar-logo span{color:#1D9E75;}
+    .topbar-right{display:flex;align-items:center;gap:12px;}
+    .topbar-user{font-size:13px;color:#7a90a0;}
+    .topbar-role{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(29,158,117,0.15);color:#1D9E75;}
+    .logout-btn{padding:6px 16px;background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;border-radius:8px;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;}
+    .admin-content{padding:28px 32px;}
+    .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;}
+    .stat-card{background:#0d2137;border:1px solid #1a3050;border-radius:12px;padding:18px 16px;}
+    .stat-card .num{font-size:30px;font-weight:900;color:#1D9E75;}
+    .stat-card .lbl{font-size:12px;color:#7a90a0;margin-top:4px;}
+    .toolbar{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap;align-items:center;}
+    .search-box{flex:1;min-width:220px;padding:10px 16px;border-radius:9px;border:1px solid #1a3050;background:rgba(255,255,255,0.07);color:#fff;font-family:Arial,sans-serif;font-size:14px;}
+    .search-box::placeholder{color:#5a7080;}
+    .filter-btn{padding:9px 16px;border-radius:9px;border:1px solid #1a3050;background:transparent;color:#7a90a0;font-size:13px;cursor:pointer;font-family:Arial,sans-serif;}
+    .filter-btn.active{background:#1D9E75;color:#fff;border-color:#1D9E75;}
+    .add-btn{padding:9px 18px;border-radius:9px;border:none;background:#1D9E75;color:#fff;font-size:13px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
+    .table-wrap{background:#0d2137;border:1px solid #1a3050;border-radius:14px;overflow:hidden;}
+    table{width:100%;border-collapse:collapse;}
+    thead{background:rgba(29,158,117,0.1);}
+    th{padding:13px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#1D9E75;font-weight:bold;}
+    td{padding:13px 14px;font-size:13px;border-top:1px solid #1a3050;vertical-align:middle;}
+    tr:hover td{background:rgba(255,255,255,0.02);cursor:pointer;}
+    .ticket-num{font-family:monospace;color:#1D9E75;font-weight:bold;}
+    .badge{padding:3px 10px;border-radius:20px;font-size:11px;font-weight:bold;white-space:nowrap;}
+    .badge-new{background:rgba(74,158,255,0.15);color:#4a9eff;}
+    .badge-progress{background:rgba(255,165,0,0.15);color:#ffa500;}
+    .badge-done{background:rgba(29,158,117,0.15);color:#1D9E75;}
+    .badge-urgent{background:rgba(255,80,80,0.15);color:#ff6b6b;}
+    .badge-normal{background:rgba(255,165,0,0.15);color:#ffa500;}
+    .badge-low{background:rgba(29,158,117,0.15);color:#1D9E75;}
+    .badge-web{background:rgba(74,158,255,0.1);color:#4a9eff;font-size:10px;}
+    .badge-manual{background:rgba(255,255,255,0.08);color:#aaa;font-size:10px;}
+    .call-btn{display:inline-flex;align-items:center;gap:4px;padding:4px 10px;background:rgba(29,158,117,0.15);color:#1D9E75;border-radius:6px;font-size:12px;text-decoration:none;border:1px solid rgba(29,158,117,0.3);}
+    .call-btn:hover{background:rgba(29,158,117,0.3);}
+    .empty-state{text-align:center;padding:48px;color:#5a7080;}
+    .empty-state .icon{font-size:40px;margin-bottom:12px;}
+    .sync-bar{display:flex;align-items:center;justify-content:space-between;padding:8px 16px;background:rgba(29,158,117,0.08);border-radius:8px;margin-bottom:16px;font-size:12px;color:#4ECFA0;border:1px solid rgba(29,158,117,0.2);}
+    .sync-btn{padding:4px 14px;background:#1D9E75;color:#fff;border:none;border-radius:6px;font-size:11px;cursor:pointer;font-family:Arial,sans-serif;}
+    .modal-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.75);z-index:200;align-items:center;justify-content:center;padding:20px;}
+    .modal-overlay.open{display:flex;}
+    .modal{background:#0d2137;border:1px solid #1a3050;border-radius:16px;padding:28px;width:100%;max-width:580px;max-height:90vh;overflow-y:auto;}
+    .modal-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:20px;}
+    .modal-title{font-size:18px;font-weight:900;}
+    .modal-close{background:transparent;border:none;color:#7a90a0;font-size:22px;cursor:pointer;}
+    .detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:16px;}
+    .detail-field label{font-size:10px;color:#7a90a0;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:4px;}
+    .detail-field .val{font-size:14px;color:#fff;line-height:1.5;}
+    .detail-field .val a{color:#1D9E75;text-decoration:none;}
+    .detail-full{grid-column:1/-1;}
+    hr.divider{border:none;border-top:1px solid #1a3050;margin:16px 0;}
+    .form-group{margin-bottom:14px;}
+    .form-group label{font-size:11px;color:#7a90a0;text-transform:uppercase;letter-spacing:1px;display:block;margin-bottom:6px;}
+    .form-group select,.form-group textarea,.form-group input{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #1a3050;background:#0d2137;color:#fff;font-family:Arial,sans-serif;font-size:13px;}
+    .form-group select option{background:#0d2137;color:#fff;}
+    .form-group textarea{height:75px;resize:none;}
+    .form-group input::placeholder,.form-group textarea::placeholder{color:#5a7080;}
+    .modal-actions{display:flex;gap:10px;margin-top:20px;}
+    .save-btn{flex:1;padding:12px;background:#1D9E75;color:#fff;border:none;border-radius:9px;font-size:14px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
+    .save-btn:hover{background:#0F6E56;}
+    .delete-btn{padding:12px 20px;background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;border-radius:9px;font-size:14px;cursor:pointer;font-family:Arial,sans-serif;}
+    .no-permission{color:#ff6b6b;font-size:12px;text-align:center;padding:8px;display:none;}
+    .add-form input,.add-form textarea,.add-form select{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #1a3050;background:rgba(255,255,255,0.07);color:#fff;font-family:Arial,sans-serif;font-size:13px;margin-bottom:12px;}
+    .add-form textarea{height:80px;resize:none;}
+    .add-form input::placeholder,.add-form textarea::placeholder{color:#5a7080;}
+    .add-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    @media(max-width:768px){
+      .stats-row{grid-template-columns:repeat(2,1fr);}
+      .admin-content{padding:16px;}
+      .topbar{padding:12px 16px;top:37px;}
+      th:nth-child(4),td:nth-child(4),th:nth-child(5),td:nth-child(5){display:none;}
+      .detail-grid{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+
+<div class="lang-bar">
+  <span id="lblLang">Language:</span>
+  <button class="lang-btn" onclick="setLang('sv')">🇸🇪 Svenska</button>
+  <button class="lang-btn active" onclick="setLang('en')">🇬🇧 English</button>
+</div>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <div class="login-logo">Ery<span>IT</span> Support</div>
+    <div class="login-sub" id="lblLoginSub">Staff Admin Panel</div>
+    <input type="text" id="loginUser" placeholder="Username"/>
+    <input type="password" id="loginPass" placeholder="Password"/>
+    <button class="login-btn" id="lblLoginBtn" onclick="doLogin()">Login</button>
+    <div class="login-error" id="loginError">❌ Wrong username or password!</div>
+  </div>
+</div>
+
+<div class="admin-wrap" id="adminWrap">
+  <div class="topbar">
+    <div class="topbar-logo">Ery<span>IT</span> Admin</div>
+    <div class="topbar-right">
+      <span class="topbar-user" id="topUser"></span>
+      <span class="topbar-role" id="topRole"></span>
+      <button class="logout-btn" id="lblLogout" onclick="doLogout()">Logout</button>
+    </div>
+  </div>
+
+  <div class="admin-content">
+    <div class="stats-row">
+      <div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl" id="lblTotal">Total Tickets</div></div>
+      <div class="stat-card"><div class="num" id="statNew" style="color:#4a9eff">0</div><div class="lbl" id="lblNew">🔵 New</div></div>
+      <div class="stat-card"><div class="num" id="statProgress" style="color:#ffa500">0</div><div class="lbl" id="lblProgress">🟡 In Progress</div></div>
+      <div class="stat-card"><div class="num" id="statDone">0</div><div class="lbl" id="lblDone">🟢 Done</div></div>
+      <div class="stat-card"><div class="num" id="statUrgent" style="color:#ff6b6b">0</div><div class="lbl" id="lblUrgent">🔴 Urgent</div></div>
+    </div>
+
+    <div class="sync-bar">
+      <span id="lblSyncInfo">🔄 Auto-refresh every 30 seconds</span>
+      <button class="sync-btn" onclick="loadAll()" id="lblSyncBtn">Refresh now</button>
+    </div>
+
+    <div class="toolbar">
+      <input type="text" class="search-box" id="searchBox" oninput="renderTable()"/>
+      <button class="filter-btn active" id="fAll" onclick="setFilter('all',this)">All</button>
+      <button class="filter-btn" id="fNew" onclick="setFilter('new',this)">New</button>
+      <button class="filter-btn" id="fProgress" onclick="setFilter('progress',this)">In Progress</button>
+      <button class="filter-btn" id="fDone" onclick="setFilter('done',this)">Done</button>
+      <button class="filter-btn" id="fUrgent" onclick="setFilter('urgent',this)" style="color:#ff6b6b;border-color:#ff6b6b;">🔴 Urgent</button>
+      <button class="add-btn" id="lblAddBtn" onclick="openAddModal()">+ Add Ticket</button>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th id="thTicket">Ticket #</th>
+            <th id="thName">Name</th>
+            <th id="thPhone">Phone</th>
+            <th id="thEmail">Email</th>
+            <th id="thCity">City</th>
+            <th id="thProblem">Problem</th>
+            <th id="thPriority">Priority</th>
+            <th id="thStatus">Status</th>
+            <th id="thSource">Source</th>
+            <th id="thAssigned">Assigned</th>
+            <th id="thDate">Date</th>
+          </tr>
+        </thead>
+        <tbody id="ticketTable"></tbody>
+      </table>
+      <div class="empty-state" id="emptyState">
+        <div class="icon">📭</div>
+        <div id="lblEmpty">No tickets yet!</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- DETAIL MODAL -->
+<div class="modal-overlay" id="detailModal">
+  <div class="modal">
+    <div class="modal-header">
+      <div class="modal-title" id="modalTicketNum"></div>
+      <button class="modal-close" onclick="closeDetail()">✕</button>
+    </div>
+    <div class="detail-grid">
+      <div class="detail-field"><label id="dName">Name</label><div class="val" id="mName"></div></div>
+      <div class="detail-field"><label id="dDate">Date</label><div class="val" id="mDate"></div></div>
+      <div class="detail-field"><label id="dPhone">Phone</label><div class="val" id="mPhone"></div></div>
+      <div class="detail-field"><label id="dEmail">Email</label><div class="val" id="mEmail"></div></div>
+      <div class="detail-field"><label id="dCity">City</label><div class="val" id="mCity"></div></div>
+      <div class="detail-field"><label id="dLang">Language</label><div class="val" id="mLang"></div></div>
+      <div class="detail-field detail-full">
+        <label id="dProblem">Problem</label>
+        <div class="val" id="mMessage" style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:8px;line-height:1.7;"></div>
+      </div>
+    </div>
+    <hr class="divider">
+    <div class="form-group" id="priorityGroup"><label id="dPriority">Priority</label>
+      <select id="mPriority">
+        <option value="normal" id="oPNormal">🟡 Normal</option>
+        <option value="urgent" id="oPUrgent">🔴 Urgent</option>
+        <option value="low" id="oPLow">🟢 Low</option>
+      </select>
+    </div>
+    <div class="form-group"><label id="dStatus">Status</label>
+      <select id="mStatus">
+        <option value="new" id="oSNew">🔵 New</option>
+        <option value="progress" id="oSProgress">🟡 In Progress</option>
+        <option value="done" id="oSDone">🟢 Done</option>
+      </select>
+    </div>
+    <div class="form-group" id="assignGroup"><label id="dAssign">Assign to staff</label>
+      <select id="mAssigned"><option value="">— Unassigned —</option></select>
+    </div>
+    <div class="form-group"><label id="dNotes">Internal notes</label>
+      <textarea id="mNotes"></textarea>
+    </div>
+    <div class="no-permission" id="noPermMsg">⛔ Only Admin can delete tickets!</div>
+    <div class="modal-actions">
+      <button class="save-btn" id="lblSaveDetail" onclick="saveDetail()">💾 Save changes</button>
+      <button class="delete-btn" id="lblDeleteDetail" onclick="deleteTicket()">🗑 Delete</button>
+    </div>
+  </div>
+</div>
+
+<!-- ADD TICKET MODAL -->
+<div class="modal-overlay" id="addModal">
+  <div class="modal add-form">
+    <div class="modal-header">
+      <div class="modal-title" id="lblAddTitle">+ Add Ticket Manually</div>
+      <button class="modal-close" onclick="closeAddModal()">✕</button>
+    </div>
+    <div class="add-form-row">
+      <input type="text" id="aName"/>
+      <input type="text" id="aPhone"/>
+    </div>
+    <div class="add-form-row">
+      <input type="email" id="aEmail"/>
+      <input type="text" id="aCity"/>
+    </div>
+    <textarea id="aMessage"></textarea>
+    <div class="add-form-row">
+      <select id="aPriority">
+        <option value="normal" id="apNormal">🟡 Normal</option>
+        <option value="urgent" id="apUrgent">🔴 Urgent</option>
+        <option value="low" id="apLow">🟢 Low</option>
+      </select>
+      <select id="aStatus">
+        <option value="new" id="asNew">🔵 New</option>
+        <option value="progress" id="asProgress">🟡 In Progress</option>
+        <option value="done" id="asDone">🟢 Done</option>
+      </select>
+    </div>
+    <button class="save-btn" style="margin-top:4px;" id="lblCreateBtn" onclick="addTicket()">Create Ticket</button>
+  </div>
+</div>
+
+<script>
+var T = {
+  en:{
+    langLabel:'Language:',loginSub:'Staff Admin Panel',loginBtn:'Login',
+    loginError:'❌ Wrong username or password!',logout:'Logout',
+    statTotal:'Total Tickets',statNew:'🔵 New',statProgress:'🟡 In Progress',
+    statDone:'🟢 Done',statUrgent:'🔴 Urgent',
+    syncInfo:'🔄 Auto-refresh every 30 seconds',syncBtn:'Refresh now',
+    searchPh:'🔍 Search ticket, name, email, phone, city...',
+    fAll:'All',fNew:'New',fProgress:'In Progress',fDone:'Done',
+    addBtn:'+ Add Ticket',
+    thTicket:'Ticket #',thName:'Name',thPhone:'Phone',thEmail:'Email',
+    thCity:'City',thProblem:'Problem',thPriority:'Priority',thStatus:'Status',
+    thSource:'Source',thAssigned:'Assigned',thDate:'Date',
+    empty:'No tickets yet!',
+    dName:'Name',dDate:'Date',dPhone:'Phone',dEmail:'Email',dCity:'City',
+    dLang:'Language',dProblem:'Problem Description',dPriority:'Priority',
+    dStatus:'Status',dAssign:'Assign to staff',dNotes:'Internal notes',
+    notesPh:'Add notes...',saveDetail:'💾 Save changes',deleteDetail:'🗑 Delete',
+    noPermMsg:'⛔ Only Admin can delete tickets!',
+    addTitle:'+ Add Ticket Manually',
+    aNamePh:'Customer name *',aPhonePh:'Phone number',
+    aEmailPh:'Email address',aCityPh:'City',aMsgPh:'Problem description *',
+    createBtn:'Create Ticket',
+    pNormal:'🟡 Normal',pUrgent:'🔴 Urgent',pLow:'🟢 Low',
+    sNew:'🔵 New',sProgress:'🟡 In Progress',sDone:'🟢 Done',
+    unassigned:'— Unassigned —',
+    bNew:'🔵 New',bProgress:'🟡 In Progress',bDone:'🟢 Done',
+    bUrgent:'🔴 Urgent',bNormal:'🟡 Normal',bLow:'🟢 Low',
+    bWeb:'🌐 Website',bManual:'✏️ Manual',
+    callBtn:'📞 Call',confirmDelete:'Delete this ticket?',
+    reqAlert:'Name and problem are required!'
+  },
+  sv:{
+    langLabel:'Språk:',loginSub:'Personalpanel',loginBtn:'Logga in',
+    loginError:'❌ Fel användarnamn eller lösenord!',logout:'Logga ut',
+    statTotal:'Totalt ärenden',statNew:'🔵 Nya',statProgress:'🟡 Pågående',
+    statDone:'🟢 Klara',statUrgent:'🔴 Brådskande',
+    syncInfo:'🔄 Uppdateras automatiskt var 30:e sekund',syncBtn:'Uppdatera nu',
+    searchPh:'🔍 Sök ärendenummer, namn, e-post, telefon, stad...',
+    fAll:'Alla',fNew:'Nya',fProgress:'Pågående',fDone:'Klara',
+    addBtn:'+ Lägg till ärende',
+    thTicket:'Ärende #',thName:'Namn',thPhone:'Telefon',thEmail:'E-post',
+    thCity:'Stad',thProblem:'Problem',thPriority:'Prioritet',thStatus:'Status',
+    thSource:'Källa',thAssigned:'Tilldelad',thDate:'Datum',
+    empty:'Inga ärenden ännu!',
+    dName:'Namn',dDate:'Datum',dPhone:'Telefon',dEmail:'E-post',dCity:'Stad',
+    dLang:'Språk',dProblem:'Problembeskrivning',dPriority:'Prioritet',
+    dStatus:'Status',dAssign:'Tilldela personal',dNotes:'Interna anteckningar',
+    notesPh:'Lägg till anteckningar...',saveDetail:'💾 Spara ändringar',
+    deleteDetail:'🗑 Radera',noPermMsg:'⛔ Endast Admin kan radera ärenden!',
+    addTitle:'+ Lägg till ärende manuellt',
+    aNamePh:'Kundnamn *',aPhonePh:'Telefonnummer',
+    aEmailPh:'E-postadress',aCityPh:'Stad',aMsgPh:'Problembeskrivning *',
+    createBtn:'Skapa ärende',
+    pNormal:'🟡 Normal',pUrgent:'🔴 Brådskande',pLow:'🟢 Låg',
+    sNew:'🔵 Nytt',sProgress:'🟡 Pågående',sDone:'🟢 Klart',
+    unassigned:'— Ej tilldelad —',
+    bNew:'🔵 Nytt',bProgress:'🟡 Pågående',bDone:'🟢 Klart',
+    bUrgent:'🔴 Brådskande',bNormal:'🟡 Normal',bLow:'🟢 Låg',
+    bWeb:'🌐 Hemsida',bManual:'✏️ Manuell',
+    callBtn:'📞 Ring',confirmDelete:'Radera detta ärende?',
+    reqAlert:'Namn och problem är obligatoriska!'
+  }
+};
+
+var lang='en';
+var STAFF=[
+  {username:'eryit',password:'EryIT2025!',name:'Admin',role:'Admin'},
+  {username:'support1',password:'Support2025!',name:'Support Staff',role:'Support'},
+  {username:'support2',password:'Staff2025!',name:'Tech Staff',role:'Technician'}
+];
+var currentUser=null;
+var currentFilter='all';
+var currentTicketId=null;
+var autoRefreshInterval=null;
+
+function setLang(l){
+  lang=l;
+  var t=T[l];
+  document.querySelectorAll('.lang-btn').forEach(function(b){b.classList.remove('active');});
+  document.querySelectorAll('.lang-btn').forEach(function(b){
+    if((l==='sv'&&b.textContent.indexOf('Svenska')!==-1)||(l==='en'&&b.textContent.indexOf('English')!==-1))
+      b.classList.add('active');
+  });
+  document.getElementById('lblLang').textContent=t.langLabel;
+  document.getElementById('lblLoginSub').textContent=t.loginSub;
+  document.getElementById('lblLoginBtn').textContent=t.loginBtn;
+  document.getElementById('loginUser').placeholder=l==='sv'?'Användarnamn':'Username';
+  document.getElementById('loginPass').placeholder=l==='sv'?'Lösenord':'Password';
+  document.getElementById('lblLogout').textContent=t.logout;
+  document.getElementById('lblTotal').textContent=t.statTotal;
+  document.getElementById('lblNew').textContent=t.statNew;
+  document.getElementById('lblProgress').textContent=t.statProgress;
+  document.getElementById('lblDone').textContent=t.statDone;
+  document.getElementById('lblUrgent').textContent=t.statUrgent;
+  document.getElementById('lblSyncInfo').textContent=t.syncInfo;
+  document.getElementById('lblSyncBtn').textContent=t.syncBtn;
+  document.getElementById('searchBox').placeholder=t.searchPh;
+  document.getElementById('fAll').textContent=t.fAll;
+  document.getElementById('fNew').textContent=t.fNew;
+  document.getElementById('fProgress').textContent=t.fProgress;
+  document.getElementById('fDone').textContent=t.fDone;
+  document.getElementById('lblAddBtn').textContent=t.addBtn;
+  document.getElementById('thTicket').textContent=t.thTicket;
+  document.getElementById('thName').textContent=t.thName;
+  document.getElementById('thPhone').textContent=t.thPhone;
+  document.getElementById('thEmail').textContent=t.thEmail;
+  document.getElementById('thCity').textContent=t.thCity;
+  document.getElementById('thProblem').textContent=t.thProblem;
+  document.getElementById('thPriority').textContent=t.thPriority;
+  document.getElementById('thStatus').textContent=t.thStatus;
+  document.getElementById('thSource').textContent=t.thSource;
+  document.getElementById('thAssigned').textContent=t.thAssigned;
+  document.getElementById('thDate').textContent=t.thDate;
+  document.getElementById('lblEmpty').textContent=t.empty;
+  document.getElementById('dName').textContent=t.dName;
+  document.getElementById('dDate').textContent=t.dDate;
+  document.getElementById('dPhone').textContent=t.dPhone;
+  document.getElementById('dEmail').textContent=t.dEmail;
+  document.getElementById('dCity').textContent=t.dCity;
+  document.getElementById('dLang').textContent=t.dLang;
+  document.getElementById('dProblem').textContent=t.dProblem;
+  document.getElementById('dPriority').textContent=t.dPriority;
+  document.getElementById('dStatus').textContent=t.dStatus;
+  document.getElementById('dAssign').textContent=t.dAssign;
+  document.getElementById('dNotes').textContent=t.dNotes;
+  document.getElementById('mNotes').placeholder=t.notesPh;
+  document.getElementById('lblSaveDetail').textContent=t.saveDetail;
+  document.getElementById('lblDeleteDetail').textContent=t.deleteDetail;
+  document.getElementById('noPermMsg').textContent=t.noPermMsg;
+  document.getElementById('oPNormal').textContent=t.pNormal;
+  document.getElementById('oPUrgent').textContent=t.pUrgent;
+  document.getElementById('oPLow').textContent=t.pLow;
+  document.getElementById('oSNew').textContent=t.sNew;
+  document.getElementById('oSProgress').textContent=t.sProgress;
+  document.getElementById('oSDone').textContent=t.sDone;
+  document.getElementById('lblAddTitle').textContent=t.addTitle;
+  document.getElementById('aName').placeholder=t.aNamePh;
+  document.getElementById('aPhone').placeholder=t.aPhonePh;
+  document.getElementById('aEmail').placeholder=t.aEmailPh;
+  document.getElementById('aCity').placeholder=t.aCityPh;
+  document.getElementById('aMessage').placeholder=t.aMsgPh;
+  document.getElementById('apNormal').textContent=t.pNormal;
+  document.getElementById('apUrgent').textContent=t.pUrgent;
+  document.getElementById('apLow').textContent=t.pLow;
+  document.getElementById('asNew').textContent=t.sNew;
+  document.getElementById('asProgress').textContent=t.sProgress;
+  document.getElementById('asDone').textContent=t.sDone;
+  document.getElementById('lblCreateBtn').textContent=t.createBtn;
+  if(currentUser) renderTable();
+}
+
+function doLogin(){
+  var u=document.getElementById('loginUser').value.trim();
+  var p=document.getElementById('loginPass').value;
+  var found=null;
+  for(var i=0;i<STAFF.length;i++){
+    if(STAFF[i].username===u&&STAFF[i].password===p){found=STAFF[i];break;}
+  }
+  if(found){
+    currentUser=found;
+    document.getElementById('loginWrap').style.display='none';
+    document.getElementById('adminWrap').style.display='block';
+    document.getElementById('topUser').textContent=found.name;
+    document.getElementById('topRole').textContent=found.role;
+    // hide add button for non-admin
+    if(found.role!=='Admin'){
+      document.getElementById('lblAddBtn').style.display='none';
+    }
+    loadAll();
+    // auto refresh every 30 seconds
+    autoRefreshInterval=setInterval(function(){loadAll();},30000);
+  } else {
+    document.getElementById('loginError').textContent=T[lang].loginError;
+    document.getElementById('loginError').style.display='block';
+  }
+}
+
+function doLogout(){
+  currentUser=null;
+  clearInterval(autoRefreshInterval);
+  document.getElementById('loginWrap').style.display='flex';
+  document.getElementById('adminWrap').style.display='none';
+  document.getElementById('loginUser').value='';
+  document.getElementById('loginPass').value='';
+  document.getElementById('loginError').style.display='none';
+  document.getElementById('lblAddBtn').style.display='';
+}
+
+document.getElementById('loginPass').addEventListener('keypress',function(e){
+  if(e.key==='Enter') doLogin();
+});
+
+function getTickets(){
+  try{return JSON.parse(localStorage.getItem('eryit_tickets')||'[]');}
+  catch(e){return[];}
+}
+function saveTickets(t){localStorage.setItem('eryit_tickets',JSON.stringify(t));}
+function nextTicketNum(){
+  var t=getTickets();
+  return '#EryIT-'+String(t.length+1).padStart(6,'0');
+}
+
+function loadAll(){renderStats();renderTable();populateAssigned();}
+
+function renderStats(){
+  var t=getTickets();
+  document.getElementById('statTotal').textContent=t.length;
+  document.getElementById('statNew').textContent=t.filter(function(x){return x.status==='new';}).length;
+  document.getElementById('statProgress').textContent=t.filter(function(x){return x.status==='progress';}).length;
+  document.getElementById('statDone').textContent=t.filter(function(x){return x.status==='done';}).length;
+  document.getElementById('statUrgent').textContent=t.filter(function(x){return x.priority==='urgent';}).length;
+}
+
+function renderTable(){
+  var tickets=getTickets();
+  var t=T[lang];
+  var s=document.getElementById('searchBox').value.toLowerCase();
+  var filtered=tickets.filter(function(tk){
+    var mf=currentFilter==='all'||tk.status===currentFilter||(currentFilter==='urgent'&&tk.priority==='urgent');
+    var ms=!s||(tk.ticketNum&&tk.ticketNum.toLowerCase().indexOf(s)!==-1)||
+      (tk.name&&tk.name.toLowerCase().indexOf(s)!==-1)||
+      (tk.email&&tk.email.toLowerCase().indexOf(s)!==-1)||
+      (tk.phone&&tk.phone.toLowerCase().indexOf(s)!==-1)||
+      (tk.city&&tk.city.toLowerCase().indexOf(s)!==-1)||
+      (tk.message&&tk.message.toLowerCase().indexOf(s)!==-1);
+    return mf&&ms;
+  });
+  var tbody=document.getElementById('ticketTable');
+  var empty=document.getElementById('emptyState');
+  if(filtered.length===0){tbody.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  tbody.innerHTML=filtered.slice().reverse().map(function(tk){
+    var sb=tk.status==='new'?'badge-new':tk.status==='progress'?'badge-progress':'badge-done';
+    var st=tk.status==='new'?t.bNew:tk.status==='progress'?t.bProgress:t.bDone;
+    var pb=tk.priority==='urgent'?'badge-urgent':tk.priority==='low'?'badge-low':'badge-normal';
+    var pt=tk.priority==='urgent'?t.bUrgent:tk.priority==='low'?t.bLow:t.bNormal;
+    var src=tk.source==='website'?'<span class="badge badge-web">'+t.bWeb+'</span>':'<span class="badge badge-manual">'+t.bManual+'</span>';
+    var msg=tk.message?(tk.message.length>30?tk.message.substring(0,30)+'...':tk.message):'-';
+    var phoneBtn=tk.phone?'<a class="call-btn" href="tel:'+tk.phone+'" onclick="event.stopPropagation()">'+t.callBtn+'</a>':'-';
+    return '<tr onclick="openDetail(\''+tk.id+'\')">'+
+      '<td><span class="ticket-num">'+(tk.ticketNum||'-')+'</span></td>'+
+      '<td>'+(tk.name||'-')+'</td>'+
+      '<td>'+phoneBtn+'</td>'+
+      '<td>'+(tk.email?'<a href="mailto:'+tk.email+'" onclick="event.stopPropagation()" style="color:#1D9E75;font-size:12px;">✉️ '+tk.email+'</a>':'-')+'</td>'+
+      '<td>'+(tk.city||'-')+'</td>'+
+      '<td style="max-width:150px;">'+msg+'</td>'+
+      '<td><span class="badge '+pb+'">'+pt+'</span></td>'+
+      '<td><span class="badge '+sb+'">'+st+'</span></td>'+
+      '<td>'+src+'</td>'+
+      '<td>'+(tk.assigned||'—')+'</td>'+
+      '<td>'+(tk.date||'-')+'</td>'+
+      '</tr>';
+  }).join('');
+}
+
+function setFilter(f,btn){
+  currentFilter=f;
+  document.querySelectorAll('.filter-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  renderTable();
+}
+
+function populateAssigned(){
+  var sel=document.getElementById('mAssigned');
+  var t=T[lang];
+  sel.innerHTML='<option value="">'+t.unassigned+'</option>';
+  STAFF.forEach(function(s){
+    sel.innerHTML+='<option value="'+s.name+'">'+s.name+' ('+s.role+')</option>';
+  });
+}
+
+function openDetail(id){
+  var tk=getTickets().find(function(x){return x.id===id;});
+  if(!tk) return;
+  currentTicketId=id;
+  var t=T[lang];
+  document.getElementById('modalTicketNum').textContent=tk.ticketNum||id;
+  document.getElementById('mName').textContent=tk.name||'-';
+  document.getElementById('mDate').textContent=tk.date||'-';
+  document.getElementById('mPhone').innerHTML=tk.phone?
+    '<a class="call-btn" href="tel:'+tk.phone+'">'+t.callBtn+' '+tk.phone+'</a>':'-';
+  document.getElementById('mEmail').innerHTML=tk.email?
+    '<a href="mailto:'+tk.email+'" style="color:#1D9E75">✉️ '+tk.email+'</a>':'-';
+  document.getElementById('mCity').textContent=tk.city||'-';
+  document.getElementById('mLang').textContent=tk.lang?tk.lang.toUpperCase():'SV';
+  document.getElementById('mMessage').textContent=tk.message||'-';
+  document.getElementById('mPriority').value=tk.priority||'normal';
+  document.getElementById('mStatus').value=tk.status||'new';
+  document.getElementById('mAssigned').value=tk.assigned||'';
+  document.getElementById('mNotes').value=tk.notes||'';
+  // show/hide delete based on role
+  var deleteBtn=document.getElementById('lblDeleteDetail');
+  var noPermMsg=document.getElementById('noPermMsg');
+  var assignGroup=document.getElementById('assignGroup');
+  var priorityGroup=document.getElementById('priorityGroup');
+
+  if(currentUser&&currentUser.role==='Admin'){
+    // Admin sees everything
+    deleteBtn.style.display='block';
+    noPermMsg.style.display='none';
+    assignGroup.style.display='block';
+    priorityGroup.style.display='block';
+    document.getElementById('mStatus').disabled=false;
+    document.getElementById('mPriority').disabled=false;
+  } else {
+    // Support/Technician — only Status and Notes
+    deleteBtn.style.display='none';
+    noPermMsg.style.display='block';
+    assignGroup.style.display='none';
+    priorityGroup.style.display='none';
+    document.getElementById('mStatus').disabled=false;
+    document.getElementById('mPriority').disabled=true;
+  }
+  document.getElementById('detailModal').classList.add('open');
+}
+
+function closeDetail(){
+  document.getElementById('detailModal').classList.remove('open');
+  currentTicketId=null;
+}
+
+function saveDetail(){
+  var tickets=getTickets();
+  var idx=tickets.findIndex(function(x){return x.id===currentTicketId;});
+  if(idx===-1) return;
+  tickets[idx].priority=document.getElementById('mPriority').value;
+  tickets[idx].status=document.getElementById('mStatus').value;
+  tickets[idx].assigned=document.getElementById('mAssigned').value;
+  tickets[idx].notes=document.getElementById('mNotes').value;
+  saveTickets(tickets);
+  closeDetail();
+  loadAll();
+}
+
+function deleteTicket(){
+  if(!currentUser||currentUser.role!=='Admin'){
+    document.getElementById('noPermMsg').style.display='block';
+    return;
+  }
+  if(!confirm(T[lang].confirmDelete)) return;
+  var tickets=getTickets().filter(function(x){return x.id!==currentTicketId;});
+  saveTickets(tickets);
+  closeDetail();
+  loadAll();
+}
+
+function openAddModal(){
+  if(!currentUser||currentUser.role!=='Admin'){return;}
+  document.getElementById('addModal').classList.add('open');
+}
+function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
+
+function addTicket(){
+  var name=document.getElementById('aName').value.trim();
+  var msg=document.getElementById('aMessage').value.trim();
+  if(!name||!msg){alert(T[lang].reqAlert);return;}
+  var tickets=getTickets();
+  tickets.push({
+    id:Date.now().toString(),
+    ticketNum:nextTicketNum(),
+    name:name,
+    phone:document.getElementById('aPhone').value,
+    email:document.getElementById('aEmail').value,
+    city:document.getElementById('aCity').value,
+    message:msg,
+    priority:document.getElementById('aPriority').value,
+    status:document.getElementById('aStatus').value,
+    assigned:'',lang:'sv',source:'manual',
+    date:new Date().toLocaleDateString('sv-SE'),
+    notes:''
+  });
+  saveTickets(tickets);
+  closeAddModal();
+  ['aName','aPhone','aEmail','aCity','aMessage'].forEach(function(id){
+    document.getElementById(id).value='';
+  });
+  loadAll();
+}
+
+['detailModal','addModal'].forEach(function(id){
+  document.getElementById(id).addEventListener('click',function(e){
+    if(e.target===this){
+      if(id==='detailModal') closeDetail();
+      else closeAddModal();
+    }
+  });
+});
+
+// listen for new tickets from website form in same browser
+window.addEventListener('storage',function(e){
+  if(e.key==='eryit_tickets') loadAll();
+});
+
+setLang('en');
+</script>
+</body>
+</html>

@@ -227,24 +227,244 @@
   <div class="contact-wrap">
     <h3><span class="sv-text">Kontakta oss idag</span><span class="en-text" style="display:none">Contact us today</span></h3>
     <p><span class="sv-text">Vi svarar inom några timmar — på svenska eller engelska.</span><span class="en-text" style="display:none">We reply within a few hours — in Swedish or English.</span></p>
-    <div class="form-row">
-      <input type="text" placeholder="Ditt namn / Your name" />
-      <input type="text" placeholder="Telefon / Phone" />
+   
+   
+
+  <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+  <input type="hidden" name="access_key" value="95b2035d-2b3d-4a3e-9de4-f92607ab8d2d">
+  <input type="hidden" name="from_name" value="EryIT Support Website">
+  <input type="hidden" id="formSubject" name="subject" value="">
+  <input type="hidden" id="formTicket" name="ticket_number" value="">
+  <input type="hidden" id="formLang" name="language" value="sv">
+
+  <div class="form-row">
+    <input type="text" name="name" id="fieldName" placeholder="Ditt namn / Your name" required />
+    <input type="text" name="phone" placeholder="Telefon / Phone" required />
+  </div>
+  <div class="form-row">
+    <input type="email" name="email" id="fieldEmail" placeholder="E-post / Email" required />
+    <input type="text" name="city" placeholder="Stad / City" />
+  </div>
+  <div class="form-full">
+    <textarea name="message" placeholder="Berätta vad du behöver / Tell us what you need..." required></textarea>
+  </div>
+
+  <!-- progress bar -->
+  <div id="formProgress" style="display:none;margin-bottom:12px;">
+    <div style="background:rgba(255,255,255,0.1);border-radius:20px;height:6px;overflow:hidden;">
+      <div id="progressBar" style="height:100%;width:0%;background:#1D9E75;border-radius:20px;transition:width 0.3s;"></div>
     </div>
-    <div class="form-row">
-      <input type="email" placeholder="E-post / Email" />
-      <input type="text" placeholder="Stad / City" />
+    <div style="font-size:12px;color:#4ECFA0;margin-top:6px;text-align:center;">
+      <span class="sv-text">Skickar ditt ärende...</span>
+      <span class="en-text" style="display:none">Submitting your ticket...</span>
     </div>
-    <div class="form-full">
-      <textarea placeholder="Berätta vad du behöver / Tell us what you need..."></textarea>
+  </div>
+
+  <!-- success message -->
+  <div id="formSuccess" style="display:none;background:rgba(29,158,117,0.15);border:1px solid rgba(29,158,117,0.3);border-radius:10px;padding:20px;text-align:center;margin-bottom:12px;">
+    <div style="font-size:28px;margin-bottom:10px;">✅</div>
+    <div id="successMsg" style="color:#4ECFA0;font-weight:bold;font-size:15px;margin-bottom:8px;"></div>
+    <div id="ticketDisplay" style="background:rgba(29,158,117,0.2);border-radius:8px;padding:10px 16px;display:inline-block;margin-top:4px;">
+      <div style="font-size:11px;color:#4ECFA0;margin-bottom:4px;" id="ticketLabel"></div>
+      <div id="ticketNumber" style="font-family:monospace;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;"></div>
     </div>
-    <button class="btn-g" style="width:100%;padding:15px;font-size:15px;">
-      <span class="sv-text">Skicka meddelande</span><span class="en-text" style="display:none">Send message</span>
-    </button>
+    <div id="successSub" style="font-size:13px;color:#7a90a0;margin-top:12px;line-height:1.6;"></div>
+  </div>
+
+  <!-- error message -->
+  <div id="formError" style="display:none;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);border-radius:10px;padding:16px;text-align:center;margin-bottom:12px;">
+    <div style="color:#ff6b6b;font-size:14px;">
+      <span class="sv-text">Något gick fel. Försök igen eller maila oss på info@eryit.se</span>
+      <span class="en-text" style="display:none">Something went wrong. Please try again or email us at info@eryit.se</span>
+    </div>
+  </div>
+
+  <button type="submit" id="submitBtn" class="btn-g" style="width:100%;padding:15px;font-size:15px;">
+    <span class="sv-text">Skicka meddelande</span>
+    <span class="en-text" style="display:none">Send message</span>
+  </button>
+</form>
+
+<script>
+// Generate ticket number
+function generateTicket() {
+  var tickets = JSON.parse(localStorage.getItem('eryit_tickets') || '[]');
+  var num = tickets.length + 1;
+  return '#EryIT-' + String(num).padStart(6, '0');
+}
+
+// Detect current language
+function getCurrentLang() {
+  var btn = document.querySelector('.lang-btn.active');
+  if (btn && btn.textContent.indexOf('English') !== -1) return 'en';
+  return 'sv';
+}
+
+document.getElementById('contactForm').addEventListener('submit', function(e) {
+  e.preventDefault();
+
+  var lang = getCurrentLang();
+  var ticket = generateTicket();
+  // save ticket to admin database
+   function saveTicketToAdmin(ticketNum, name, phone, email, city, message, lang) {
+  var key = 'eryit_tickets';
+  var tickets = JSON.parse(localStorage.getItem(key) || '[]');
+  tickets.push({
+    id: Date.now().toString(),
+    ticketNum: ticketNum,
+    name: name,
+    phone: phone,
+    email: email,
+    city: city,
+    message: message,
+    priority: 'normal',
+    status: 'new',
+    assigned: '',
+    lang: lang,
+    date: new Date().toLocaleDateString('sv-SE'),
+    notes: '',
+    source: 'website'
+  });
+  localStorage.setItem(key, JSON.stringify(tickets));
+}
+
+
+  var name = document.getElementById('fieldName').value;
+  var email = document.getElementById('fieldEmail').value;
+
+  // set hidden fields
+  document.getElementById('formTicket').value = ticket;
+  document.getElementById('formLang').value = lang;
+
+  // set email subject based on language
+  if (lang === 'sv') {
+    document.getElementById('formSubject').value = 'Nytt ärende ' + ticket + ' — ' + name + ' | EryIT Support';
+  } else {
+    document.getElementById('formSubject').value = 'New ticket ' + ticket + ' — ' + name + ' | EryIT Support';
+  }
+
+  var btn = document.getElementById('submitBtn');
+  var progress = document.getElementById('formProgress');
+  var progressBar = document.getElementById('progressBar');
+  var success = document.getElementById('formSuccess');
+  var error = document.getElementById('formError');
+
+  success.style.display = 'none';
+  error.style.display = 'none';
+  progress.style.display = 'block';
+  btn.disabled = true;
+  btn.style.opacity = '0.6';
+
+  // animate progress
+  var width = 0;
+  var interval = setInterval(function() {
+    if (width < 90) { width += 12; progressBar.style.width = width + '%'; }
+  }, 150);
+
+  var formData = new FormData(document.getElementById('contactForm'));
+
+  fetch('https://api.web3forms.com/submit', {
+    method: 'POST',
+    body: formData
+  })
+  .then(function(r) { return r.json(); })
+  .then(function(data) {
+    clearInterval(interval);
+    progressBar.style.width = '100%';
+    setTimeout(function() {
+      progress.style.display = 'none';
+      if (data.success) {
+        // show ticket number
+        document.getElementById('ticketNumber').textContent = ticket;
+
+        if (lang === 'sv') {
+          document.getElementById('successMsg').textContent = 'Tack ' + name + '! Ditt ärende har skapats.';
+          document.getElementById('ticketLabel').textContent = 'Ditt ärendenummer';
+          document.getElementById('successSub').innerHTML = 'Vi svarar inom 48 timmar på <strong style="color:#4ECFA0">' + email + '</strong><br>Spara ditt ärendenummer för framtida kontakt.';
+        } else {
+          document.getElementById('successMsg').textContent = 'Thank you ' + name + '! Your ticket has been created.';
+          document.getElementById('ticketLabel').textContent = 'Your ticket number';
+          document.getElementById('successSub').innerHTML = 'We will reply within 48 hours to <strong style="color:#4ECFA0">' + email + '</strong><br>Please save your ticket number for future reference.';
+        }
+
+        saveTicketToAdmin(
+          ticket,
+          name,
+          document.querySelector('[name="phone"]').value,
+          email,
+          document.querySelector('[name="city"]').value,
+          document.querySelector('[name="message"]').value,
+          lang
+        );
+
+        success.style.display = 'block';
+        document.getElementById('contactForm').reset();
+
+        // send confirmation email to customer via Web3Forms
+        var confirmData = new FormData();
+        confirmData.append('access_key', '95b2035d-2b3d-4a3e-9de4-f92607ab8d2d');
+        confirmData.append('from_name', 'EryIT Support');
+        confirmData.append('email', email);
+
+        if (lang === 'sv') {
+          confirmData.append('subject', 'EryIT Support — Ärende ' + ticket + ' bekräftat');
+          confirmData.append('message',
+            'Hej ' + name + ',\n\n' +
+            'Tack för att du kontaktade EryIT Support!\n\n' +
+            'Ditt ärende har registrerats med följande nummer:\n' +
+            ticket + '\n\n' +
+            'Vi svarar inom 48 timmar.\n\n' +
+            'Om du har frågor kan du svara på detta mail eller kontakta oss på:\n' +
+            'info@eryit.se\n\n' +
+            'Med vänliga hälsningar,\n' +
+            'EryIT Support\n' +
+            'www.eryit.se'
+          );
+        } else {
+          confirmData.append('subject', 'EryIT Support — Ticket ' + ticket + ' confirmed');
+          confirmData.append('message',
+            'Hello ' + name + ',\n\n' +
+            'Thank you for contacting EryIT Support!\n\n' +
+            'Your ticket has been registered with the following number:\n' +
+            ticket + '\n\n' +
+            'We will reply within 48 hours.\n\n' +
+            'If you have any questions you can reply to this email or contact us at:\n' +
+            'info@eryit.se\n\n' +
+            'Best regards,\n' +
+            'EryIT Support\n' +
+            'www.eryit.se'
+          );
+        }
+
+        fetch('https://api.web3forms.com/submit', {
+          method: 'POST',
+          body: confirmData
+        });
+
+      } else {
+        error.style.display = 'block';
+      }
+      btn.disabled = false;
+      btn.style.opacity = '1';
+    }, 400);
+  })
+  .catch(function() {
+    clearInterval(interval);
+    progress.style.display = 'none';
+    error.style.display = 'block';
+    btn.disabled = false;
+    btn.style.opacity = '1';
+  });
+});
+</script>
+   
+   
+
+   
     <div class="contact-info">
       <div class="cinfo">
         <div class="cinfo-ico">📧</div>
-        <div class="cinfo-lbl">E-post / Email</div>
+        <div class="cinfo-lbl">Skicka E-post / Send Email</div>
         <div class="cinfo-val">info@eryit.se</div>
       </div>
       <div class="cinfo">
@@ -273,7 +493,7 @@
       <a href="#kontakt">Kontakt</a>
     </div>
   </div>
-  <div class="footer-copy">© 2025 EryIT.se — <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
+  <div class="footer-copy">© 2025 EryIT.se - <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
 </footer>
 
 <script>
