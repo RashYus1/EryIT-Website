@@ -29,7 +29,7 @@
     .topbar-role{font-size:11px;padding:3px 10px;border-radius:20px;background:rgba(29,158,117,0.15);color:#1D9E75;}
     .logout-btn{padding:6px 16px;background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;border-radius:8px;font-size:12px;cursor:pointer;font-family:Arial,sans-serif;}
     .admin-content{padding:28px 32px;}
-    .stats-row{display:grid;grid-template-columns:repeat(5,1fr);gap:14px;margin-bottom:28px;}
+    .stats-row{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-bottom:28px;}
     .stat-card{background:#0d2137;border:1px solid #1a3050;border-radius:12px;padding:18px 16px;}
     .stat-card .num{font-size:30px;font-weight:900;color:#1D9E75;}
     .stat-card .lbl{font-size:12px;color:#7a90a0;margin-top:4px;}
@@ -84,10 +84,12 @@
     .save-btn:hover{background:#0F6E56;}
     .delete-btn{padding:12px 20px;background:transparent;color:#ff6b6b;border:1px solid #ff6b6b;border-radius:9px;font-size:14px;cursor:pointer;font-family:Arial,sans-serif;}
     .no-permission{color:#ff6b6b;font-size:12px;text-align:center;padding:8px;display:none;}
-    .add-form input,.add-form textarea,.add-form select{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #1a3050;background:rgba(255,255,255,0.07);color:#fff;font-family:Arial,sans-serif;font-size:13px;margin-bottom:12px;}
+    .add-form input,.add-form textarea,.add-form select{width:100%;padding:10px 14px;border-radius:8px;border:1px solid #1a3050;background:#0d2137;color:#fff;font-family:Arial,sans-serif;font-size:13px;margin-bottom:12px;}
+    .add-form select option{background:#0d2137;color:#fff;}
     .add-form textarea{height:80px;resize:none;}
     .add-form input::placeholder,.add-form textarea::placeholder{color:#5a7080;}
     .add-form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+    .loading{text-align:center;padding:32px;color:#7a90a0;font-size:14px;}
     @media(max-width:768px){
       .stats-row{grid-template-columns:repeat(2,1fr);}
       .admin-content{padding:16px;}
@@ -126,14 +128,15 @@
     </div>
   </div>
 
-  <div class="admin-content">
+    <div class="admin-content">
     <div class="stats-row">
-      <div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl" id="lblTotal">Total Tickets</div></div>
-      <div class="stat-card"><div class="num" id="statNew" style="color:#4a9eff">0</div><div class="lbl" id="lblNew">🔵 New</div></div>
-      <div class="stat-card"><div class="num" id="statProgress" style="color:#ffa500">0</div><div class="lbl" id="lblProgress">🟡 In Progress</div></div>
-      <div class="stat-card"><div class="num" id="statDone">0</div><div class="lbl" id="lblDone">🟢 Done</div></div>
-      <div class="stat-card"><div class="num" id="statUrgent" style="color:#ff6b6b">0</div><div class="lbl" id="lblUrgent">🔴 Urgent</div></div>
-    </div>
+    <div class="stat-card"><div class="num" id="statTotal">0</div><div class="lbl" id="lblTotal">Total Tickets</div></div>
+    <div class="stat-card"><div class="num" id="statNew" style="color:#4a9eff">0</div><div class="lbl" id="lblNew">🔵 New</div></div>
+    <div class="stat-card"><div class="num" id="statProgress" style="color:#ffa500">0</div><div class="lbl" id="lblProgress">🟡 In Progress</div></div>
+    <div class="stat-card"><div class="num" id="statDone">0</div><div class="lbl" id="lblDone">🟢 Done</div></div>
+    <div class="stat-card"><div class="num" id="statUrgent" style="color:#ff6b6b">0</div><div class="lbl" id="lblUrgent">🔴 Urgent</div></div>
+    <div class="stat-card" style="border-color:rgba(255,107,107,0.3);"><div class="num" id="statRemaining" style="color:#ff6b6b">0</div><div class="lbl" id="lblRemaining">⏳ Remaining</div></div>
+  </div>
 
     <div class="sync-bar">
       <span id="lblSyncInfo">🔄 Auto-refresh every 30 seconds</span>
@@ -163,16 +166,18 @@
             <th id="thPriority">Priority</th>
             <th id="thStatus">Status</th>
             <th id="thSource">Source</th>
+            <th id="thCreatedBy">Created by</th>
             <th id="thAssigned">Assigned</th>
             <th id="thDate">Date</th>
           </tr>
         </thead>
         <tbody id="ticketTable"></tbody>
       </table>
-      <div class="empty-state" id="emptyState">
+      <div class="empty-state" id="emptyState" style="display:none;">
         <div class="icon">📭</div>
         <div id="lblEmpty">No tickets yet!</div>
       </div>
+      <div class="loading" id="loadingState">Loading tickets...</div>
     </div>
   </div>
 </div>
@@ -184,18 +189,34 @@
       <div class="modal-title" id="modalTicketNum"></div>
       <button class="modal-close" onclick="closeDetail()">✕</button>
     </div>
-    <div class="detail-grid">
-      <div class="detail-field"><label id="dName">Name</label><div class="val" id="mName"></div></div>
-      <div class="detail-field"><label id="dDate">Date</label><div class="val" id="mDate"></div></div>
-      <div class="detail-field"><label id="dPhone">Phone</label><div class="val" id="mPhone"></div></div>
-      <div class="detail-field"><label id="dEmail">Email</label><div class="val" id="mEmail"></div></div>
-      <div class="detail-field"><label id="dCity">City</label><div class="val" id="mCity"></div></div>
-      <div class="detail-field"><label id="dLang">Language</label><div class="val" id="mLang"></div></div>
-      <div class="detail-field detail-full">
-        <label id="dProblem">Problem</label>
-        <div class="val" id="mMessage" style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:8px;line-height:1.7;"></div>
-      </div>
-    </div>
+
+    <div class="detail-grid" id="viewMode">
+  <div class="detail-field"><label id="dName">Name</label><div class="val" id="mName"></div></div>
+  <div class="detail-field"><label id="dDate">Date</label><div class="val" id="mDate"></div></div>
+  <div class="detail-field"><label id="dPhone">Phone</label><div class="val" id="mPhone"></div></div>
+  <div class="detail-field"><label id="dEmail">Email</label><div class="val" id="mEmail"></div></div>
+  <div class="detail-field"><label id="dCity">City</label><div class="val" id="mCity"></div></div>
+  <div class="detail-field"><label id="dLang">Language</label><div class="val" id="mLang"></div></div>
+  <div class="detail-field detail-full">
+    <label id="dProblem">Problem</label>
+    <div class="val" id="mMessage" style="background:rgba(255,255,255,0.04);padding:10px 14px;border-radius:8px;line-height:1.7;"></div>
+  </div>
+</div>
+
+<!-- EDIT MODE — Admin only -->
+<div id="editMode" style="display:none;">
+  <div class="detail-grid">
+    <div class="form-group"><label id="eNameLbl">Name</label><input type="text" id="eName"/></div>
+    <div class="form-group"><label id="ePhoneLbl">Phone</label><input type="text" id="ePhone"/></div>
+    <div class="form-group"><label id="eEmailLbl">Email</label><input type="email" id="eEmail"/></div>
+    <div class="form-group"><label id="eCityLbl">City</label><input type="text" id="eCity"/></div>
+  </div>
+  <div class="form-group">
+    <label id="eMsgLbl">Problem Description</label>
+    <textarea id="eMessage" style="height:80px;resize:none;width:100%;padding:10px 14px;border-radius:8px;border:1px solid #1a3050;background:#0d2137;color:#fff;font-family:Arial,sans-serif;font-size:13px;"></textarea>
+  </div>
+</div>
+
     <hr class="divider">
     <div class="form-group" id="priorityGroup"><label id="dPriority">Priority</label>
       <select id="mPriority">
@@ -219,9 +240,10 @@
     </div>
     <div class="no-permission" id="noPermMsg">⛔ Only Admin can delete tickets!</div>
     <div class="modal-actions">
-      <button class="save-btn" id="lblSaveDetail" onclick="saveDetail()">💾 Save changes</button>
-      <button class="delete-btn" id="lblDeleteDetail" onclick="deleteTicket()">🗑 Delete</button>
-    </div>
+    <button class="save-btn" id="lblSaveDetail" onclick="saveDetail()">💾 Save changes</button>
+    <button class="save-btn" id="lblEditBtn" onclick="toggleEdit()" style="background:#185FA5;display:none;">✏️ Edit ticket</button>
+    <button class="delete-btn" id="lblDeleteDetail" onclick="deleteTicket()">🗑 Delete</button>
+  </div>
   </div>
 </div>
 
@@ -258,20 +280,35 @@
 </div>
 
 <script>
-var T = {
-  en:{
-    langLabel:'Language:',loginSub:'Staff Admin Panel',loginBtn:'Login',
+// ==================
+// CONFIG
+// ==================
+var SUPABASE_URL = 'https://ccpaibkxslcrrbywupuy.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_y6urOlo0Tv9qGz6dOnC7lQ_OFwPVMYF';
+var API = SUPABASE_URL + '/rest/v1/tickets';
+var HEADERS = {
+  'apikey': SUPABASE_KEY,
+  'Authorization': 'Bearer ' + SUPABASE_KEY,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=representation'
+};
+
+// ==================
+// TRANSLATIONS
+// ==================
+var T={
+  en:{langLabel:'Language:',loginSub:'Staff Admin Panel',loginBtn:'Login',
     loginError:'❌ Wrong username or password!',logout:'Logout',
     statTotal:'Total Tickets',statNew:'🔵 New',statProgress:'🟡 In Progress',
-    statDone:'🟢 Done',statUrgent:'🔴 Urgent',
+    statDone:'🟢 Done',statUrgent:'🔴 Urgent',statRemaining:'⏳ Remaining',
     syncInfo:'🔄 Auto-refresh every 30 seconds',syncBtn:'Refresh now',
     searchPh:'🔍 Search ticket, name, email, phone, city...',
     fAll:'All',fNew:'New',fProgress:'In Progress',fDone:'Done',
     addBtn:'+ Add Ticket',
     thTicket:'Ticket #',thName:'Name',thPhone:'Phone',thEmail:'Email',
     thCity:'City',thProblem:'Problem',thPriority:'Priority',thStatus:'Status',
-    thSource:'Source',thAssigned:'Assigned',thDate:'Date',
-    empty:'No tickets yet!',
+    thSource:'Source',thCreatedBy:'Created by',thAssigned:'Assigned',thDate:'Date',
+    empty:'No tickets yet!',loading:'Loading tickets...',
     dName:'Name',dDate:'Date',dPhone:'Phone',dEmail:'Email',dCity:'City',
     dLang:'Language',dProblem:'Problem Description',dPriority:'Priority',
     dStatus:'Status',dAssign:'Assign to staff',dNotes:'Internal notes',
@@ -288,21 +325,19 @@ var T = {
     bUrgent:'🔴 Urgent',bNormal:'🟡 Normal',bLow:'🟢 Low',
     bWeb:'🌐 Website',bManual:'✏️ Manual',
     callBtn:'📞 Call',confirmDelete:'Delete this ticket?',
-    reqAlert:'Name and problem are required!'
-  },
-  sv:{
-    langLabel:'Språk:',loginSub:'Personalpanel',loginBtn:'Logga in',
+    reqAlert:'Name and problem are required!'},
+  sv:{langLabel:'Språk:',loginSub:'Personalpanel',loginBtn:'Logga in',
     loginError:'❌ Fel användarnamn eller lösenord!',logout:'Logga ut',
     statTotal:'Totalt ärenden',statNew:'🔵 Nya',statProgress:'🟡 Pågående',
-    statDone:'🟢 Klara',statUrgent:'🔴 Brådskande',
-    syncInfo:'🔄 Uppdateras automatiskt var 30:e sekund',syncBtn:'Uppdatera nu',
+    statDone:'🟢 Klara',statUrgent:'🔴 Brådskande',statRemaining:'⏳ Återstående',
+    syncInfo:'🔄 Uppdateras var 30:e sekund',syncBtn:'Uppdatera nu',
     searchPh:'🔍 Sök ärendenummer, namn, e-post, telefon, stad...',
     fAll:'Alla',fNew:'Nya',fProgress:'Pågående',fDone:'Klara',
     addBtn:'+ Lägg till ärende',
     thTicket:'Ärende #',thName:'Namn',thPhone:'Telefon',thEmail:'E-post',
     thCity:'Stad',thProblem:'Problem',thPriority:'Prioritet',thStatus:'Status',
-    thSource:'Källa',thAssigned:'Tilldelad',thDate:'Datum',
-    empty:'Inga ärenden ännu!',
+    thSource:'Källa',thCreatedBy:'Skapad av',thAssigned:'Tilldelad',thDate:'Datum',
+    empty:'Inga ärenden ännu!',loading:'Laddar ärenden...',
     dName:'Namn',dDate:'Datum',dPhone:'Telefon',dEmail:'E-post',dCity:'Stad',
     dLang:'Språk',dProblem:'Problembeskrivning',dPriority:'Prioritet',
     dStatus:'Status',dAssign:'Tilldela personal',dNotes:'Interna anteckningar',
@@ -319,8 +354,7 @@ var T = {
     bUrgent:'🔴 Brådskande',bNormal:'🟡 Normal',bLow:'🟢 Låg',
     bWeb:'🌐 Hemsida',bManual:'✏️ Manuell',
     callBtn:'📞 Ring',confirmDelete:'Radera detta ärende?',
-    reqAlert:'Namn och problem är obligatoriska!'
-  }
+    reqAlert:'Namn och problem är obligatoriska!'}
 };
 
 var lang='en';
@@ -332,8 +366,43 @@ var STAFF=[
 var currentUser=null;
 var currentFilter='all';
 var currentTicketId=null;
+var allTickets=[];
 var autoRefreshInterval=null;
 
+// ==================
+// SUPABASE API
+// ==================
+async function fetchTickets(){
+  var r=await fetch(API+'?order=id.asc',{headers:HEADERS});
+  return await r.json();
+}
+
+async function insertTicket(data){
+  var r=await fetch(API,{method:'POST',headers:HEADERS,body:JSON.stringify(data)});
+  return await r.json();
+}
+
+async function updateTicket(id,data){
+  await fetch(API+'?id=eq.'+id,{
+    method:'PATCH',
+    headers:HEADERS,
+    body:JSON.stringify(data)
+  });
+}
+
+async function deleteTicketDB(id){
+  await fetch(API+'?id=eq.'+id,{method:'DELETE',headers:HEADERS});
+}
+
+async function countTickets(){
+  var r=await fetch(API+'?select=id',{headers:HEADERS});
+  var d=await r.json();
+  return Array.isArray(d)?d.length:0;
+}
+
+// ==================
+// LANG
+// ==================
 function setLang(l){
   lang=l;
   var t=T[l];
@@ -353,6 +422,7 @@ function setLang(l){
   document.getElementById('lblProgress').textContent=t.statProgress;
   document.getElementById('lblDone').textContent=t.statDone;
   document.getElementById('lblUrgent').textContent=t.statUrgent;
+  document.getElementById('lblRemaining').textContent=t.statRemaining;
   document.getElementById('lblSyncInfo').textContent=t.syncInfo;
   document.getElementById('lblSyncBtn').textContent=t.syncBtn;
   document.getElementById('searchBox').placeholder=t.searchPh;
@@ -370,9 +440,11 @@ function setLang(l){
   document.getElementById('thPriority').textContent=t.thPriority;
   document.getElementById('thStatus').textContent=t.thStatus;
   document.getElementById('thSource').textContent=t.thSource;
+  document.getElementById('thCreatedBy').textContent=t.thCreatedBy;
   document.getElementById('thAssigned').textContent=t.thAssigned;
   document.getElementById('thDate').textContent=t.thDate;
   document.getElementById('lblEmpty').textContent=t.empty;
+  document.getElementById('loadingState').textContent=t.loading;
   document.getElementById('dName').textContent=t.dName;
   document.getElementById('dDate').textContent=t.dDate;
   document.getElementById('dPhone').textContent=t.dPhone;
@@ -410,6 +482,9 @@ function setLang(l){
   if(currentUser) renderTable();
 }
 
+// ==================
+// AUTH
+// ==================
 function doLogin(){
   var u=document.getElementById('loginUser').value.trim();
   var p=document.getElementById('loginPass').value;
@@ -423,13 +498,15 @@ function doLogin(){
     document.getElementById('adminWrap').style.display='block';
     document.getElementById('topUser').textContent=found.name;
     document.getElementById('topRole').textContent=found.role;
-    // hide add button for non-admin
-    if(found.role!=='Admin'){
-      document.getElementById('lblAddBtn').style.display='none';
-    }
+
+    if(found.role==='Admin'){
+  document.getElementById('lblAddBtn').style.display='block';
+} else {
+  document.getElementById('lblAddBtn').style.display='block';
+}
+
     loadAll();
-    // auto refresh every 30 seconds
-    autoRefreshInterval=setInterval(function(){loadAll();},30000);
+    autoRefreshInterval=setInterval(loadAll,30000);
   } else {
     document.getElementById('loginError').textContent=T[lang].loginError;
     document.getElementById('loginError').style.display='block';
@@ -451,34 +528,42 @@ document.getElementById('loginPass').addEventListener('keypress',function(e){
   if(e.key==='Enter') doLogin();
 });
 
-function getTickets(){
-  try{return JSON.parse(localStorage.getItem('eryit_tickets')||'[]');}
-  catch(e){return[];}
+// ==================
+// LOAD & RENDER
+// ==================
+async function loadAll(){
+  document.getElementById('loadingState').style.display='block';
+  document.getElementById('emptyState').style.display='none';
+  try {
+    allTickets = await fetchTickets();
+    if(!Array.isArray(allTickets)) allTickets=[];
+  } catch(e) {
+    allTickets=[];
+  }
+  document.getElementById('loadingState').style.display='none';
+  renderStats();
+  renderTable();
+  populateAssigned();
 }
-function saveTickets(t){localStorage.setItem('eryit_tickets',JSON.stringify(t));}
-function nextTicketNum(){
-  var t=getTickets();
-  return '#EryIT-'+String(t.length+1).padStart(6,'0');
-}
-
-function loadAll(){renderStats();renderTable();populateAssigned();}
 
 function renderStats(){
-  var t=getTickets();
-  document.getElementById('statTotal').textContent=t.length;
-  document.getElementById('statNew').textContent=t.filter(function(x){return x.status==='new';}).length;
-  document.getElementById('statProgress').textContent=t.filter(function(x){return x.status==='progress';}).length;
-  document.getElementById('statDone').textContent=t.filter(function(x){return x.status==='done';}).length;
-  document.getElementById('statUrgent').textContent=t.filter(function(x){return x.priority==='urgent';}).length;
+  var total=allTickets.length;
+  var done=allTickets.filter(function(x){return x.status==='done';}).length;
+  var remaining=total-done;
+  document.getElementById('statTotal').textContent=total;
+  document.getElementById('statNew').textContent=allTickets.filter(function(x){return x.status==='new';}).length;
+  document.getElementById('statProgress').textContent=allTickets.filter(function(x){return x.status==='progress';}).length;
+  document.getElementById('statDone').textContent=done;
+  document.getElementById('statUrgent').textContent=allTickets.filter(function(x){return x.priority==='urgent'&&x.status!=='done';}).length;
+  document.getElementById('statRemaining').textContent=remaining;
 }
 
 function renderTable(){
-  var tickets=getTickets();
   var t=T[lang];
   var s=document.getElementById('searchBox').value.toLowerCase();
-  var filtered=tickets.filter(function(tk){
+  var filtered=allTickets.filter(function(tk){
     var mf=currentFilter==='all'||tk.status===currentFilter||(currentFilter==='urgent'&&tk.priority==='urgent');
-    var ms=!s||(tk.ticketNum&&tk.ticketNum.toLowerCase().indexOf(s)!==-1)||
+    var ms=!s||(tk.ticket_num&&tk.ticket_num.toLowerCase().indexOf(s)!==-1)||
       (tk.name&&tk.name.toLowerCase().indexOf(s)!==-1)||
       (tk.email&&tk.email.toLowerCase().indexOf(s)!==-1)||
       (tk.phone&&tk.phone.toLowerCase().indexOf(s)!==-1)||
@@ -498,16 +583,17 @@ function renderTable(){
     var src=tk.source==='website'?'<span class="badge badge-web">'+t.bWeb+'</span>':'<span class="badge badge-manual">'+t.bManual+'</span>';
     var msg=tk.message?(tk.message.length>30?tk.message.substring(0,30)+'...':tk.message):'-';
     var phoneBtn=tk.phone?'<a class="call-btn" href="tel:'+tk.phone+'" onclick="event.stopPropagation()">'+t.callBtn+'</a>':'-';
-    return '<tr onclick="openDetail(\''+tk.id+'\')">'+
-      '<td><span class="ticket-num">'+(tk.ticketNum||'-')+'</span></td>'+
+    return '<tr onclick="openDetail('+tk.id+')">'+
+      '<td><span class="ticket-num">'+(tk.ticket_num||'-')+'</span></td>'+
       '<td>'+(tk.name||'-')+'</td>'+
       '<td>'+phoneBtn+'</td>'+
       '<td>'+(tk.email?'<a href="mailto:'+tk.email+'" onclick="event.stopPropagation()" style="color:#1D9E75;font-size:12px;">✉️ '+tk.email+'</a>':'-')+'</td>'+
       '<td>'+(tk.city||'-')+'</td>'+
-      '<td style="max-width:150px;">'+msg+'</td>'+
+      '<td>'+msg+'</td>'+
       '<td><span class="badge '+pb+'">'+pt+'</span></td>'+
       '<td><span class="badge '+sb+'">'+st+'</span></td>'+
       '<td>'+src+'</td>'+
+      '<td>'+(tk.created_by||'🌐 Website')+'</td>'+
       '<td>'+(tk.assigned||'—')+'</td>'+
       '<td>'+(tk.date||'-')+'</td>'+
       '</tr>';
@@ -530,12 +616,15 @@ function populateAssigned(){
   });
 }
 
+// ==================
+// DETAIL MODAL
+// ==================
 function openDetail(id){
-  var tk=getTickets().find(function(x){return x.id===id;});
+  var tk=allTickets.find(function(x){return x.id===id;});
   if(!tk) return;
   currentTicketId=id;
   var t=T[lang];
-  document.getElementById('modalTicketNum').textContent=tk.ticketNum||id;
+  document.getElementById('modalTicketNum').textContent=tk.ticket_num||('#'+id);
   document.getElementById('mName').textContent=tk.name||'-';
   document.getElementById('mDate').textContent=tk.date||'-';
   document.getElementById('mPhone').innerHTML=tk.phone?
@@ -549,76 +638,114 @@ function openDetail(id){
   document.getElementById('mStatus').value=tk.status||'new';
   document.getElementById('mAssigned').value=tk.assigned||'';
   document.getElementById('mNotes').value=tk.notes||'';
-  // show/hide delete based on role
   var deleteBtn=document.getElementById('lblDeleteDetail');
   var noPermMsg=document.getElementById('noPermMsg');
   var assignGroup=document.getElementById('assignGroup');
   var priorityGroup=document.getElementById('priorityGroup');
-
   if(currentUser&&currentUser.role==='Admin'){
-    // Admin sees everything
     deleteBtn.style.display='block';
     noPermMsg.style.display='none';
     assignGroup.style.display='block';
     priorityGroup.style.display='block';
-    document.getElementById('mStatus').disabled=false;
     document.getElementById('mPriority').disabled=false;
+    document.getElementById('lblEditBtn').style.display='block';
   } else {
-    // Support/Technician — only Status and Notes
     deleteBtn.style.display='none';
     noPermMsg.style.display='block';
     assignGroup.style.display='none';
     priorityGroup.style.display='none';
-    document.getElementById('mStatus').disabled=false;
     document.getElementById('mPriority').disabled=true;
+    document.getElementById('lblEditBtn').style.display='none';
   }
+  // always start in view mode
+  document.getElementById('viewMode').style.display='grid';
+  document.getElementById('editMode').style.display='none';
   document.getElementById('detailModal').classList.add('open');
 }
 
 function closeDetail(){
   document.getElementById('detailModal').classList.remove('open');
+  document.getElementById('viewMode').style.display='grid';
+  document.getElementById('editMode').style.display='none';
   currentTicketId=null;
 }
 
-function saveDetail(){
-  var tickets=getTickets();
-  var idx=tickets.findIndex(function(x){return x.id===currentTicketId;});
-  if(idx===-1) return;
-  tickets[idx].priority=document.getElementById('mPriority').value;
-  tickets[idx].status=document.getElementById('mStatus').value;
-  tickets[idx].assigned=document.getElementById('mAssigned').value;
-  tickets[idx].notes=document.getElementById('mNotes').value;
-  saveTickets(tickets);
+function toggleEdit(){
+  var view=document.getElementById('viewMode');
+  var edit=document.getElementById('editMode');
+  var btn=document.getElementById('lblEditBtn');
+  if(edit.style.display==='none'){
+    // switch to edit mode — fill fields with current values
+    var tk=allTickets.find(function(x){return x.id===currentTicketId;});
+    if(!tk) return;
+    document.getElementById('eName').value=tk.name||'';
+    document.getElementById('ePhone').value=tk.phone||'';
+    document.getElementById('eEmail').value=tk.email||'';
+    document.getElementById('eCity').value=tk.city||'';
+    document.getElementById('eMessage').value=tk.message||'';
+    view.style.display='none';
+    edit.style.display='block';
+    btn.textContent='👁 View mode';
+    btn.style.background='#7a90a0';
+  } else {
+    // switch back to view mode
+    view.style.display='grid';
+    edit.style.display='none';
+    btn.textContent='✏️ Edit ticket';
+    btn.style.background='#185FA5';
+  }
+}
+
+
+async function saveDetail(){
+  var updateData={
+    priority:document.getElementById('mPriority').value,
+    status:document.getElementById('mStatus').value,
+    assigned:document.getElementById('mAssigned').value,
+    notes:document.getElementById('mNotes').value
+  };
+  // if in edit mode save the edited fields too
+  if(document.getElementById('editMode').style.display!=='none'){
+    updateData.name=document.getElementById('eName').value;
+    updateData.phone=document.getElementById('ePhone').value;
+    updateData.email=document.getElementById('eEmail').value;
+    updateData.city=document.getElementById('eCity').value;
+    updateData.message=document.getElementById('eMessage').value;
+  }
+  await updateTicket(currentTicketId, updateData);
   closeDetail();
   loadAll();
 }
 
-function deleteTicket(){
+async function deleteTicket(){
   if(!currentUser||currentUser.role!=='Admin'){
     document.getElementById('noPermMsg').style.display='block';
     return;
   }
   if(!confirm(T[lang].confirmDelete)) return;
-  var tickets=getTickets().filter(function(x){return x.id!==currentTicketId;});
-  saveTickets(tickets);
+  await deleteTicketDB(currentTicketId);
   closeDetail();
   loadAll();
 }
 
+// ==================
+// ADD TICKET
+// ==================
 function openAddModal(){
-  if(!currentUser||currentUser.role!=='Admin'){return;}
+  if(!currentUser) return;
   document.getElementById('addModal').classList.add('open');
 }
+
 function closeAddModal(){document.getElementById('addModal').classList.remove('open');}
 
-function addTicket(){
+async function addTicket(){
   var name=document.getElementById('aName').value.trim();
   var msg=document.getElementById('aMessage').value.trim();
   if(!name||!msg){alert(T[lang].reqAlert);return;}
-  var tickets=getTickets();
-  tickets.push({
-    id:Date.now().toString(),
-    ticketNum:nextTicketNum(),
+  var count=await countTickets();
+  var ticketNum='#EryIT-'+String(count+1).padStart(6,'0');
+  await insertTicket({
+    ticket_num:ticketNum,
     name:name,
     phone:document.getElementById('aPhone').value,
     email:document.getElementById('aEmail').value,
@@ -626,11 +753,13 @@ function addTicket(){
     message:msg,
     priority:document.getElementById('aPriority').value,
     status:document.getElementById('aStatus').value,
-    assigned:'',lang:'sv',source:'manual',
-    date:new Date().toLocaleDateString('sv-SE'),
-    notes:''
+    assigned:'',
+    lang:'sv',
+    source:'manual',
+    created_by:currentUser?currentUser.name:'Admin',
+    notes:'',
+    date:new Date().toLocaleDateString('sv-SE')
   });
-  saveTickets(tickets);
   closeAddModal();
   ['aName','aPhone','aEmail','aCity','aMessage'].forEach(function(id){
     document.getElementById(id).value='';
@@ -645,11 +774,6 @@ function addTicket(){
       else closeAddModal();
     }
   });
-});
-
-// listen for new tickets from website form in same browser
-window.addEventListener('storage',function(e){
-  if(e.key==='eryit_tickets') loadAll();
 });
 
 setLang('en');

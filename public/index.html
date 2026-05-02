@@ -286,12 +286,62 @@
   </button>
 </form>
 
+
+
 <script>
 
-function generateTicket() {
-  var tickets = JSON.parse(localStorage.getItem('eryit_tickets') || '[]');
-  var num = tickets.length + 1;
-  return '#EryIT-' + String(num).padStart(6, '0');
+
+
+var SUPA_URL = 'https://ccpaibkxslcrrbywupuy.supabase.co/rest/v1/tickets';
+var SUPA_KEY = 'sb_publishable_y6urOlo0Tv9qGz6dOnC7lQ_OFwPVMYF';
+var SUPA_HEADERS = {
+  'apikey': SUPA_KEY,
+  'Authorization': 'Bearer ' + SUPA_KEY,
+  'Content-Type': 'application/json',
+  'Prefer': 'return=minimal'
+};
+
+
+async function generateTicket() {
+  try {
+    var response = await fetch(SUPA_URL + '?select=id', {
+      headers: {'apikey': SUPA_KEY, 'Authorization': 'Bearer ' + SUPA_KEY}
+    });
+    var data = await response.json();
+    var num = (Array.isArray(data) ? data.length : 0) + 1;
+    return '#EryIT-' + String(num).padStart(6, '0');
+  } catch(e) {
+    return '#EryIT-' + Date.now().toString().slice(-6);
+  }
+}
+
+
+async function saveTicketToAdmin(ticketNum, name, phone, email, city, message, lang) {
+  try {
+    var response = await fetch(SUPA_URL, {
+      method: 'POST',
+      headers: SUPA_HEADERS,
+      body: JSON.stringify({
+        ticket_num: ticketNum,
+        name: name,
+        phone: phone,
+        email: email,
+        city: city,
+        message: message,
+        priority: 'normal',
+        status: 'new',
+        assigned: '',
+        lang: lang,
+        source: 'website',
+        created_by: 'Website',
+        notes: '',
+        date: new Date().toLocaleDateString('sv-SE')
+      })
+    });
+    console.log('Supabase response:', response.status);
+  } catch(e) {
+    console.error('Supabase save error:', e);
+  }
 }
 
 
@@ -301,43 +351,21 @@ function getCurrentLang() {
   return 'sv';
 }
 
-document.getElementById('contactForm').addEventListener('submit', function(e) {
+
+document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
 
   var lang = getCurrentLang();
-  var ticket = generateTicket();
-  
-   function saveTicketToAdmin(ticketNum, name, phone, email, city, message, lang) {
-  var key = 'eryit_tickets';
-  var tickets = JSON.parse(localStorage.getItem(key) || '[]');
-  tickets.push({
-    id: Date.now().toString(),
-    ticketNum: ticketNum,
-    name: name,
-    phone: phone,
-    email: email,
-    city: city,
-    message: message,
-    priority: 'normal',
-    status: 'new',
-    assigned: '',
-    lang: lang,
-    date: new Date().toLocaleDateString('sv-SE'),
-    notes: '',
-    source: 'website'
-  });
-  localStorage.setItem(key, JSON.stringify(tickets));
-}
-
-
+  var ticket = await generateTicket();
   var name = document.getElementById('fieldName').value;
   var email = document.getElementById('fieldEmail').value;
+  var phone = document.querySelector('[name="phone"]').value;
+  var city = document.querySelector('[name="city"]').value;
+  var message = document.querySelector('[name="message"]').value;
 
-  
   document.getElementById('formTicket').value = ticket;
   document.getElementById('formLang').value = lang;
 
-  
   if (lang === 'sv') {
     document.getElementById('formSubject').value = 'Nytt ärende ' + ticket + ' — ' + name + ' | EryIT Support';
   } else {
@@ -356,26 +384,30 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
   btn.disabled = true;
   btn.style.opacity = '0.6';
 
-  
   var width = 0;
   var interval = setInterval(function() {
     if (width < 90) { width += 12; progressBar.style.width = width + '%'; }
   }, 150);
 
-  var formData = new FormData(document.getElementById('contactForm'));
+  try {
+    
+    await saveTicketToAdmin(ticket, name, phone, email, city, message, lang);
 
-  fetch('https://api.web3forms.com/submit', {
-    method: 'POST',
-    body: formData
-  })
-  .then(function(r) { return r.json(); })
-  .then(function(data) {
+    
+    var formData = new FormData(document.getElementById('contactForm'));
+    var w3response = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST',
+      body: formData
+    });
+    var data = await w3response.json();
+
     clearInterval(interval);
     progressBar.style.width = '100%';
+
     setTimeout(function() {
       progress.style.display = 'none';
+
       if (data.success) {
-        
         document.getElementById('ticketNumber').textContent = ticket;
 
         if (lang === 'sv') {
@@ -387,16 +419,6 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
           document.getElementById('ticketLabel').textContent = 'Your ticket number';
           document.getElementById('successSub').innerHTML = 'We will reply within 48 hours to <strong style="color:#4ECFA0">' + email + '</strong><br>Please save your ticket number for future reference.';
         }
-
-        saveTicketToAdmin(
-          ticket,
-          name,
-          document.querySelector('[name="phone"]').value,
-          email,
-          document.querySelector('[name="city"]').value,
-          document.querySelector('[name="message"]').value,
-          lang
-        );
 
         success.style.display = 'block';
         document.getElementById('contactForm').reset();
@@ -415,25 +437,19 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
             'Ditt ärende har registrerats med följande nummer:\n' +
             ticket + '\n\n' +
             'Vi svarar inom 48 timmar.\n\n' +
-            'Om du har frågor kan du svara på detta mail eller kontakta oss på:\n' +
-            'info@eryit.se\n\n' +
-            'Med vänliga hälsningar,\n' +
-            'EryIT Support\n' +
-            'www.eryit.se'
+            'Kontakta oss på: info@eryit.se\n\n' +
+            'Med vänliga hälsningar,\nEryIT Support\nwww.eryit.se'
           );
         } else {
           confirmData.append('subject', 'EryIT Support — Ticket ' + ticket + ' confirmed');
           confirmData.append('message',
             'Hello ' + name + ',\n\n' +
             'Thank you for contacting EryIT Support!\n\n' +
-            'Your ticket has been registered with the following number:\n' +
+            'Your ticket number is:\n' +
             ticket + '\n\n' +
             'We will reply within 48 hours.\n\n' +
-            'If you have any questions you can reply to this email or contact us at:\n' +
-            'info@eryit.se\n\n' +
-            'Best regards,\n' +
-            'EryIT Support\n' +
-            'www.eryit.se'
+            'Contact us at: info@eryit.se\n\n' +
+            'Best regards,\nEryIT Support\nwww.eryit.se'
           );
         }
 
@@ -445,18 +461,40 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       } else {
         error.style.display = 'block';
       }
+
       btn.disabled = false;
       btn.style.opacity = '1';
     }, 400);
-  })
-  .catch(function() {
+
+  } catch(err) {
     clearInterval(interval);
     progress.style.display = 'none';
     error.style.display = 'block';
     btn.disabled = false;
     btn.style.opacity = '1';
-  });
+  }
 });
+
+function setLang(lang) {
+  var svItems = document.querySelectorAll('.sv-text');
+  var enItems = document.querySelectorAll('.en-text');
+  var btns = document.querySelectorAll('.lang-btn');
+  var i;
+  if (lang === 'sv') {
+    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'inline'; }
+    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'none'; }
+    btns[0].classList.add('active');
+    btns[1].classList.remove('active');
+    document.documentElement.lang = 'sv';
+  } else {
+    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'none'; }
+    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'inline'; }
+    btns[0].classList.remove('active');
+    btns[1].classList.add('active');
+    document.documentElement.lang = 'en';
+  }
+}
+setLang('sv');
 </script>
    
    
@@ -494,7 +532,7 @@ document.getElementById('contactForm').addEventListener('submit', function(e) {
       <a href="#kontakt">Kontakt</a>
     </div>
   </div>
-  <div class="footer-copy">© 2025 EryIT.se — <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
+  <div class="footer-copy">© 2025 EryIT.se - <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
 </footer>
 
 <script>
