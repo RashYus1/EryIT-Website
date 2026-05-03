@@ -192,6 +192,8 @@ nav {
 .svc-card h3 { font-family: Arial, sans-serif; font-size: 15px; font-weight: bold; margin-bottom: 8px; color: #0a1628; }
 .svc-card p { font-size: 13px; color: #666; line-height: 1.6; }
 .svc-price { font-size: 13px; color: #1D9E75; font-weight: bold; margin-top: 12px; }
+.svc-more { font-size: 12px; color: #1D9E75; margin-top: 8px; font-weight: bold; }
+.svc-card { cursor: pointer; }
 
 /* STEPS */
 .steps { display: flex; flex-direction: column; }

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
   <title>EryIT Admin — Ticket System</title>
   <style>
     *{box-sizing:border-box;margin:0;padding:0;}
@@ -39,7 +39,7 @@
     .filter-btn{padding:9px 16px;border-radius:9px;border:1px solid #1a3050;background:transparent;color:#7a90a0;font-size:13px;cursor:pointer;font-family:Arial,sans-serif;}
     .filter-btn.active{background:#1D9E75;color:#fff;border-color:#1D9E75;}
     .add-btn{padding:9px 18px;border-radius:9px;border:none;background:#1D9E75;color:#fff;font-size:13px;font-weight:bold;cursor:pointer;font-family:Arial,sans-serif;}
-    .table-wrap{background:#0d2137;border:1px solid #1a3050;border-radius:14px;overflow:hidden;}
+    .table-wrap{background:#0d2137;border:1px solid #1a3050;border-radius:14px;overflow:hidden;overflow-x:auto;}
     table{width:100%;border-collapse:collapse;}
     thead{background:rgba(29,158,117,0.1);}
     th{padding:13px 14px;text-align:left;font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#1D9E75;font-weight:bold;}
@@ -358,11 +358,13 @@ var T={
 };
 
 var lang='en';
+
 var STAFF=[
-  {username:'eryit',password:'EryIT2025!',name:'Admin',role:'Admin'},
-  {username:'support1',password:'Support2025!',name:'Support Staff',role:'Support'},
-  {username:'support2',password:'Staff2025!',name:'Tech Staff',role:'Technician'}
+  {username:'eryit', passwordHash:'19671b8ce6c02a9d50aae4a2971ac5e1d8c7c099824f402dc066dec19462046c', name:'Admin', role:'Admin'},
+  {username:'support1', passwordHash:'5cc3966c0352feb860f95c64410d14e6cb853bfb90835247f0f1079df8422836', name:'Support Staff', role:'Support'},
+  {username:'support2', passwordHash:'41c9ba8079ed9d0181f6592568d7326d8170dc848c9dbe260348c980a7e52376', name:'Tech Staff', role:'Technician'}
 ];
+
 var currentUser=null;
 var currentFilter='all';
 var currentTicketId=null;
@@ -485,13 +487,21 @@ function setLang(l){
 // ==================
 // AUTH
 // ==================
-function doLogin(){
+async function doLogin(){
   var u=document.getElementById('loginUser').value.trim();
   var p=document.getElementById('loginPass').value;
   var found=null;
+
+  // hash the entered password
+  var msgBuffer = new TextEncoder().encode(p);
+  var hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
+  var hashArray = Array.from(new Uint8Array(hashBuffer));
+  var hashedInput = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
+
   for(var i=0;i<STAFF.length;i++){
-    if(STAFF[i].username===u&&STAFF[i].password===p){found=STAFF[i];break;}
+    if(STAFF[i].username===u&&STAFF[i].passwordHash===hashedInput){found=STAFF[i];break;}
   }
+
   if(found){
     currentUser=found;
     document.getElementById('loginWrap').style.display='none';

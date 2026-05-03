@@ -9,9 +9,6 @@
 </head>
 <body>
 
-
-
-
 <nav>
   <div class="logo">
     <img src="/images/logo.png" alt="EryIT Logo" onerror="this.style.display='none'">
@@ -32,8 +29,6 @@
   <button class="lang-btn active" onclick="setLang('sv')">🇸🇪 Svenska</button>
   <button class="lang-btn" onclick="setLang('en')">🇬🇧 English</button>
 </div>
-
-
 
 <section class="hero">
   <div class="hero-grid-bg"></div>
@@ -79,49 +74,82 @@
   </div>
 </section>
 
+<!-- SERVICES -->
 <section class="sec" id="tjanster">
   <div class="sec-label"><span class="sv-text">Vad vi erbjuder</span><span class="en-text" style="display:none">What we offer</span></div>
   <div class="sec-title"><span class="sv-text">Våra tjänster</span><span class="en-text" style="display:none">Our services</span></div>
   <div class="svc-grid">
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('it-support')">
       <div class="svc-ico ic-g">🖥</div>
       <h3><span class="sv-text">IT-support</span><span class="en-text" style="display:none">IT Support</span></h3>
       <p><span class="sv-text">Hjälp på plats eller distans med dator, skrivare eller programvara.</span><span class="en-text" style="display:none">On-site or remote help with your computer, printer or software.</span></p>
-      <div class="svc-price">Från 499 kr / besök</div>
+      <div class="svc-price"><span class="sv-text">Från 499 kr / besök</span><span class="en-text" style="display:none">From 499 kr / visit</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('wifi')">
       <div class="svc-ico ic-b">📶</div>
       <h3>WiFi & Internet</h3>
       <p><span class="sv-text">Routerinställning, WiFi-förstärkare och nätverksinstallation.</span><span class="en-text" style="display:none">Router setup, WiFi boosters and network installation.</span></p>
-      <div class="svc-price">Från 699 kr</div>
+      <div class="svc-price"><span class="sv-text">Från 699 kr</span><span class="en-text" style="display:none">From 699 kr</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('hardware')">
       <div class="svc-ico ic-a">🔧</div>
       <h3><span class="sv-text">Hårdvaruinstallation</span><span class="en-text" style="display:none">Hardware Installation</span></h3>
       <p><span class="sv-text">Installation av datorer, skärmar och skrivare hos dig.</span><span class="en-text" style="display:none">Installation of computers, screens and printers at your location.</span></p>
-      <div class="svc-price">Från 599 kr</div>
+      <div class="svc-price"><span class="sv-text">Från 599 kr</span><span class="en-text" style="display:none">From 599 kr</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('security')">
       <div class="svc-ico ic-p">🛡</div>
       <h3><span class="sv-text">Säkerhet & Backup</span><span class="en-text" style="display:none">Security & Backup</span></h3>
       <p><span class="sv-text">Virusborttagning, antivirusskydd och molnsäkerhetskopiering.</span><span class="en-text" style="display:none">Virus removal, antivirus protection and cloud backup.</span></p>
-      <div class="svc-price">Från 399 kr</div>
+      <div class="svc-price"><span class="sv-text">Från 399 kr</span><span class="en-text" style="display:none">From 399 kr</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('remote')">
       <div class="svc-ico ic-t">💬</div>
       <h3><span class="sv-text">Onlinesupport</span><span class="en-text" style="display:none">Remote Support</span></h3>
       <p><span class="sv-text">Videomöte eller chatt — vi löser ditt IT-problem på distans.</span><span class="en-text" style="display:none">Video call or chat — we solve your IT problem remotely.</span></p>
-      <div class="svc-price">Från 299 kr / timme</div>
+      <div class="svc-price"><span class="sv-text">Från 299 kr / timme</span><span class="en-text" style="display:none">From 299 kr / hour</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
-    <div class="svc-card">
+    <div class="svc-card" onclick="openService('business')">
       <div class="svc-ico ic-r">🏢</div>
       <h3><span class="sv-text">Företags-IT</span><span class="en-text" style="display:none">Business IT</span></h3>
       <p><span class="sv-text">Månadsavtal för IT-support till småföretag — vi tar hand om allt.</span><span class="en-text" style="display:none">Monthly IT support for small businesses — we handle everything.</span></p>
-      <div class="svc-price">Från 1 499 kr / mån</div>
+      <div class="svc-price"><span class="sv-text">Från 1 499 kr / mån</span><span class="en-text" style="display:none">From 1 499 kr / month</span></div>
+      <div class="svc-more"><span class="sv-text">Läs mer →</span><span class="en-text" style="display:none">Read more →</span></div>
     </div>
   </div>
 </section>
 
+<!-- SERVICE DETAIL MODAL -->
+<div id="serviceModal" style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:500;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#0d2137;border:1px solid #1a3050;border-radius:16px;width:100%;max-width:600px;max-height:90vh;overflow-y:auto;">
+    <div style="display:flex;align-items:center;justify-content:space-between;padding:20px 24px;border-bottom:1px solid #1a3050;">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div id="svcModalIcon" style="width:44px;height:44px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:22px;"></div>
+        <div>
+          <div id="svcModalTitle" style="font-family:Arial,sans-serif;font-size:20px;font-weight:900;color:#fff;"></div>
+          <div id="svcModalPrice" style="font-size:13px;color:#1D9E75;font-weight:bold;margin-top:2px;"></div>
+        </div>
+      </div>
+      <button onclick="closeService()" style="background:transparent;border:none;color:#7a90a0;font-size:24px;cursor:pointer;">✕</button>
+    </div>
+    <div style="padding:24px;">
+      <div id="svcModalDesc" style="font-size:14px;color:#a0b4c8;line-height:1.8;margin-bottom:20px;"></div>
+      <div id="svcModalIncludes" style="margin-bottom:20px;"></div>
+      <div id="svcModalSuitable" style="background:rgba(29,158,117,0.08);border:1px solid rgba(29,158,117,0.2);border-radius:10px;padding:16px;margin-bottom:20px;"></div>
+      <div id="svcModalPricing" style="background:rgba(255,255,255,0.04);border-radius:10px;padding:16px;margin-bottom:20px;"></div>
+      <button onclick="closeService();document.getElementById('kontakt').scrollIntoView({behavior:'smooth'});" style="width:100%;padding:14px;background:#1D9E75;color:#fff;border:none;border-radius:9px;font-size:15px;font-weight:bold;font-family:Arial,sans-serif;cursor:pointer;">
+        <span class="sv-text">Boka denna tjänst</span><span class="en-text" style="display:none">Book this service</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
 <section class="sec">
   <div class="sec-label"><span class="sv-text">Enkel process</span><span class="en-text" style="display:none">Simple process</span></div>
   <div class="sec-title"><span class="sv-text">Så här fungerar det</span><span class="en-text" style="display:none">How it works</span></div>
@@ -157,6 +185,7 @@
   </div>
 </section>
 
+<!-- WHY US -->
 <section class="sec">
   <div class="sec-label"><span class="sv-text">Varför EryIT</span><span class="en-text" style="display:none">Why EryIT</span></div>
   <div class="sec-title"><span class="sv-text">Varför välja oss?</span><span class="en-text" style="display:none">Why choose us?</span></div>
@@ -184,6 +213,7 @@
   </div>
 </section>
 
+<!-- ABOUT -->
 <section class="sec" id="om-oss">
   <div class="sec-label"><span class="sv-text">Vår historia</span><span class="en-text" style="display:none">Our story</span></div>
   <div class="sec-title"><span class="sv-text">Om EryIT</span><span class="en-text" style="display:none">About EryIT</span></div>
@@ -196,96 +226,128 @@
   </div>
 </section>
 
+<!-- REVIEWS -->
 <section class="sec">
   <div class="sec-label"><span class="sv-text">Kundrecensioner</span><span class="en-text" style="display:none">Customer reviews</span></div>
   <div class="sec-title"><span class="sv-text">Vad folk säger</span><span class="en-text" style="display:none">What people say</span></div>
-  <div class="reviews">
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p><span class="sv-text">"Fixade mitt WiFi på mindre än en timme. Mycket professionellt och förklarade allt tydligt."</span><span class="en-text" style="display:none">"Fixed my WiFi in less than an hour. Very professional and explained everything clearly."</span></p>
-      <div class="reviewer">Anna K. <span>— Göteborg</span></div>
+  <div style="background:linear-gradient(135deg,#0a1628,#0d2137);border:1px solid #1a3050;border-radius:16px;padding:36px 32px;text-align:center;">
+    <div style="font-size:48px;margin-bottom:16px;">⭐</div>
+    <h3 style="font-family:Arial,sans-serif;font-size:22px;font-weight:900;color:#fff;margin-bottom:10px;">
+      <span class="sv-text">Bli en av våra första recensenter!</span>
+      <span class="en-text" style="display:none">Be one of our first reviewers!</span>
+    </h3>
+    <p style="font-size:14px;color:#7a90a0;max-width:460px;margin:0 auto 24px;line-height:1.7;">
+      <span class="sv-text">EryIT Support är ett nytt och växande IT-företag i Sverige. Vi strävar efter att ge bästa möjliga service. Har vi hjälpt dig? Dela din upplevelse på Google!</span>
+      <span class="en-text" style="display:none">EryIT Support is a new and growing IT company in Sweden. We strive to give the best possible service. Have we helped you? Share your experience on Google!</span>
+    </p>
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;max-width:420px;margin:0 auto 24px;">
+      <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:16px 10px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:#1D9E75;font-family:Arial,sans-serif;">100%</div>
+        <div style="font-size:11px;color:#7a90a0;margin-top:4px;"><span class="sv-text">Nöjdhetsgaranti</span><span class="en-text" style="display:none">Satisfaction guarantee</span></div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:16px 10px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:#1D9E75;font-family:Arial,sans-serif;">48h</div>
+        <div style="font-size:11px;color:#7a90a0;margin-top:4px;"><span class="sv-text">Svarstid</span><span class="en-text" style="display:none">Response time</span></div>
+      </div>
+      <div style="background:rgba(255,255,255,0.05);border-radius:10px;padding:16px 10px;text-align:center;">
+        <div style="font-size:24px;font-weight:900;color:#1D9E75;font-family:Arial,sans-serif;">SE</div>
+        <div style="font-size:11px;color:#7a90a0;margin-top:4px;"><span class="sv-text">Baserade i Sverige</span><span class="en-text" style="display:none">Based in Sweden</span></div>
+      </div>
     </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p><span class="sv-text">"Installerade hela kontorsnätverket. Snabbt, prisvärt och kom nästa dag."</span><span class="en-text" style="display:none">"Set up our whole office network. Fast, affordable and came the next day."</span></p>
-      <div class="reviewer">Marcus L. <span>— Stockholm</span></div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p><span class="sv-text">"Tog bort ett virus och installerade backup. Utmärkt service till bra pris."</span><span class="en-text" style="display:none">"Removed a virus and set up backup. Excellent service at a fair price."</span></p>
-      <div class="reviewer">Sara P. <span>— Malmö</span></div>
-    </div>
-    <div class="review">
-      <div class="stars">★★★★★</div>
-      <p><span class="sv-text">"Äntligen ett IT-företag som pratar vanlig svenska och inte tar för mycket betalt."</span><span class="en-text" style="display:none">"Finally an IT company that speaks plain language and does not overcharge."</span></p>
-      <div class="reviewer">Erik B. <span>— Göteborg</span></div>
-    </div>
+    <a href="https://g.page/r/review" target="_blank" style="display:inline-block;padding:12px 28px;background:#1D9E75;color:#fff;border-radius:9px;font-size:14px;font-weight:bold;font-family:Arial,sans-serif;text-decoration:none;">
+      <span class="sv-text">⭐ Lämna ett omdöme på Google</span>
+      <span class="en-text" style="display:none">⭐ Leave a Google review</span>
+    </a>
   </div>
 </section>
 
+<!-- CONTACT -->
 <section class="sec" id="kontakt">
   <div class="contact-wrap">
     <h3><span class="sv-text">Kontakta oss idag</span><span class="en-text" style="display:none">Contact us today</span></h3>
     <p><span class="sv-text">Vi svarar inom några timmar — på svenska eller engelska.</span><span class="en-text" style="display:none">We reply within a few hours — in Swedish or English.</span></p>
-   
-   
 
-  <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
-  <input type="hidden" name="access_key" value="95b2035d-2b3d-4a3e-9de4-f92607ab8d2d">
-  <input type="hidden" name="from_name" value="EryIT Support Website">
-  <input type="hidden" id="formSubject" name="subject" value="">
-  <input type="hidden" id="formTicket" name="ticket_number" value="">
-  <input type="hidden" id="formLang" name="language" value="sv">
+    <form id="contactForm" action="https://api.web3forms.com/submit" method="POST">
+      <input type="hidden" name="access_key" value="95b2035d-2b3d-4a3e-9de4-f92607ab8d2d">
+      <input type="hidden" name="from_name" value="EryIT Support Website">
+      <input type="hidden" id="formSubject" name="subject" value="">
+      <input type="hidden" id="formTicket" name="ticket_number" value="">
+      <input type="hidden" id="formLang" name="language" value="sv">
+      <div class="form-row">
+        <input type="text" name="name" id="fieldName" placeholder="Ditt namn / Your name" required />
+        <input type="text" name="phone" placeholder="Telefon / Phone" required />
+      </div>
+      <div class="form-row">
+        <input type="email" name="email" id="fieldEmail" placeholder="E-post / Email" required />
+        <input type="text" name="city" placeholder="Stad / City" />
+      </div>
+      <div class="form-full">
+        <textarea name="message" placeholder="Berätta vad du behöver / Tell us what you need..." required></textarea>
+      </div>
+      <div id="formProgress" style="display:none;margin-bottom:12px;">
+        <div style="background:rgba(255,255,255,0.1);border-radius:20px;height:6px;overflow:hidden;">
+          <div id="progressBar" style="height:100%;width:0%;background:#1D9E75;border-radius:20px;transition:width 0.3s;"></div>
+        </div>
+        <div style="font-size:12px;color:#4ECFA0;margin-top:6px;text-align:center;">
+          <span class="sv-text">Skickar ditt ärende...</span>
+          <span class="en-text" style="display:none">Submitting your ticket...</span>
+        </div>
+      </div>
+      <div id="formSuccess" style="display:none;background:rgba(29,158,117,0.15);border:1px solid rgba(29,158,117,0.3);border-radius:10px;padding:20px;text-align:center;margin-bottom:12px;">
+        <div style="font-size:28px;margin-bottom:10px;">✅</div>
+        <div id="successMsg" style="color:#4ECFA0;font-weight:bold;font-size:15px;margin-bottom:8px;"></div>
+        <div id="ticketDisplay" style="background:rgba(29,158,117,0.2);border-radius:8px;padding:10px 16px;display:inline-block;margin-top:4px;">
+          <div style="font-size:11px;color:#4ECFA0;margin-bottom:4px;" id="ticketLabel"></div>
+          <div id="ticketNumber" style="font-family:monospace;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;"></div>
+        </div>
+        <div id="successSub" style="font-size:13px;color:#7a90a0;margin-top:12px;line-height:1.6;"></div>
+      </div>
+      <div id="formError" style="display:none;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);border-radius:10px;padding:16px;text-align:center;margin-bottom:12px;">
+        <div style="color:#ff6b6b;font-size:14px;">
+          <span class="sv-text">Något gick fel. Försök igen eller maila oss på info@eryit.se</span>
+          <span class="en-text" style="display:none">Something went wrong. Please try again or email us at info@eryit.se</span>
+        </div>
+      </div>
+      <button type="submit" id="submitBtn" class="btn-g" style="width:100%;padding:15px;font-size:15px;">
+        <span class="sv-text">Skicka meddelande</span>
+        <span class="en-text" style="display:none">Send message</span>
+      </button>
+    </form>
 
-  <div class="form-row">
-    <input type="text" name="name" id="fieldName" placeholder="Ditt namn / Your name" required />
-    <input type="text" name="phone" placeholder="Telefon / Phone" required />
-  </div>
-  <div class="form-row">
-    <input type="email" name="email" id="fieldEmail" placeholder="E-post / Email" required />
-    <input type="text" name="city" placeholder="Stad / City" />
-  </div>
-  <div class="form-full">
-    <textarea name="message" placeholder="Berätta vad du behöver / Tell us what you need..." required></textarea>
-  </div>
-
-  <!-- progress bar -->
-  <div id="formProgress" style="display:none;margin-bottom:12px;">
-    <div style="background:rgba(255,255,255,0.1);border-radius:20px;height:6px;overflow:hidden;">
-      <div id="progressBar" style="height:100%;width:0%;background:#1D9E75;border-radius:20px;transition:width 0.3s;"></div>
+    <div class="contact-info">
+      <div class="cinfo">
+        <div class="cinfo-ico">📧</div>
+        <div class="cinfo-lbl">E-post / Email</div>
+        <div class="cinfo-val">info@eryit.se</div>
+      </div>
+      <div class="cinfo">
+        <div class="cinfo-ico">📍</div>
+        <div class="cinfo-lbl"><span class="sv-text">Plats</span><span class="en-text" style="display:none">Location</span></div>
+        <div class="cinfo-val">Göteborg, Sverige</div>
+      </div>
+      <div class="cinfo">
+        <div class="cinfo-ico">🕐</div>
+        <div class="cinfo-lbl"><span class="sv-text">Öppettider</span><span class="en-text" style="display:none">Hours</span></div>
+        <div class="cinfo-val">Mån–Fre 8–18</div>
+      </div>
     </div>
-    <div style="font-size:12px;color:#4ECFA0;margin-top:6px;text-align:center;">
-      <span class="sv-text">Skickar ditt ärende...</span>
-      <span class="en-text" style="display:none">Submitting your ticket...</span>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-top">
+    <div class="footer-logo">
+      <img src="/images/logo.png" alt="EryIT Logo" onerror="this.style.display='none'">
+      <div class="footer-logo-text">Ery<span>IT</span>.se</div>
+    </div>
+    <div class="footer-links">
+      <a href="#tjanster"><span class="sv-text">Tjänster</span><span class="en-text" style="display:none">Services</span></a>
+      <a href="#om-oss"><span class="sv-text">Om oss</span><span class="en-text" style="display:none">About</span></a>
+      <a href="#kontakt">Kontakt</a>
     </div>
   </div>
-
-  <!-- success message -->
-  <div id="formSuccess" style="display:none;background:rgba(29,158,117,0.15);border:1px solid rgba(29,158,117,0.3);border-radius:10px;padding:20px;text-align:center;margin-bottom:12px;">
-    <div style="font-size:28px;margin-bottom:10px;">✅</div>
-    <div id="successMsg" style="color:#4ECFA0;font-weight:bold;font-size:15px;margin-bottom:8px;"></div>
-    <div id="ticketDisplay" style="background:rgba(29,158,117,0.2);border-radius:8px;padding:10px 16px;display:inline-block;margin-top:4px;">
-      <div style="font-size:11px;color:#4ECFA0;margin-bottom:4px;" id="ticketLabel"></div>
-      <div id="ticketNumber" style="font-family:monospace;font-size:22px;font-weight:900;color:#fff;letter-spacing:2px;"></div>
-    </div>
-    <div id="successSub" style="font-size:13px;color:#7a90a0;margin-top:12px;line-height:1.6;"></div>
-  </div>
-
-  <!-- error message -->
-  <div id="formError" style="display:none;background:rgba(255,80,80,0.1);border:1px solid rgba(255,80,80,0.3);border-radius:10px;padding:16px;text-align:center;margin-bottom:12px;">
-    <div style="color:#ff6b6b;font-size:14px;">
-      <span class="sv-text">Något gick fel. Försök igen eller maila oss på info@eryit.se</span>
-      <span class="en-text" style="display:none">Something went wrong. Please try again or email us at info@eryit.se</span>
-    </div>
-  </div>
-
-  <button type="submit" id="submitBtn" class="btn-g" style="width:100%;padding:15px;font-size:15px;">
-    <span class="sv-text">Skicka meddelande</span>
-    <span class="en-text" style="display:none">Send message</span>
-  </button>
-</form>
-
-
+  <div class="footer-copy">© 2025 EryIT.se - <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
+</footer>
 
 <script>
 // ==================
@@ -300,7 +362,6 @@ var SUPA_HEADERS = {
   'Prefer': 'return=minimal'
 };
 
-// Generate ticket number
 async function generateTicket() {
   try {
     var response = await fetch(SUPA_URL + '?select=id', {
@@ -314,10 +375,9 @@ async function generateTicket() {
   }
 }
 
-// Save ticket to Supabase
 async function saveTicketToAdmin(ticketNum, name, phone, email, city, message, lang) {
   try {
-    var response = await fetch(SUPA_URL, {
+    await fetch(SUPA_URL, {
       method: 'POST',
       headers: SUPA_HEADERS,
       body: JSON.stringify({
@@ -337,23 +397,19 @@ async function saveTicketToAdmin(ticketNum, name, phone, email, city, message, l
         date: new Date().toLocaleDateString('sv-SE')
       })
     });
-    console.log('Supabase response:', response.status);
   } catch(e) {
     console.error('Supabase save error:', e);
   }
 }
 
-// Detect current language
 function getCurrentLang() {
   var btn = document.querySelector('.lang-btn.active');
   if (btn && btn.textContent.indexOf('English') !== -1) return 'en';
   return 'sv';
 }
 
-// Form submit
 document.getElementById('contactForm').addEventListener('submit', async function(e) {
   e.preventDefault();
-
   var lang = getCurrentLang();
   var ticket = await generateTicket();
   var name = document.getElementById('fieldName').value;
@@ -389,26 +445,16 @@ document.getElementById('contactForm').addEventListener('submit', async function
   }, 150);
 
   try {
-    // Save to Supabase first
     await saveTicketToAdmin(ticket, name, phone, email, city, message, lang);
-
-    // Send email via Web3Forms
     var formData = new FormData(document.getElementById('contactForm'));
-    var w3response = await fetch('https://api.web3forms.com/submit', {
-      method: 'POST',
-      body: formData
-    });
+    var w3response = await fetch('https://api.web3forms.com/submit', {method:'POST', body:formData});
     var data = await w3response.json();
-
     clearInterval(interval);
     progressBar.style.width = '100%';
-
     setTimeout(function() {
       progress.style.display = 'none';
-
       if (data.success) {
         document.getElementById('ticketNumber').textContent = ticket;
-
         if (lang === 'sv') {
           document.getElementById('successMsg').textContent = 'Tack ' + name + '! Ditt ärende har skapats.';
           document.getElementById('ticketLabel').textContent = 'Ditt ärendenummer';
@@ -418,53 +464,26 @@ document.getElementById('contactForm').addEventListener('submit', async function
           document.getElementById('ticketLabel').textContent = 'Your ticket number';
           document.getElementById('successSub').innerHTML = 'We will reply within 48 hours to <strong style="color:#4ECFA0">' + email + '</strong><br>Please save your ticket number for future reference.';
         }
-
         success.style.display = 'block';
         document.getElementById('contactForm').reset();
-
-        // Send confirmation email to customer
         var confirmData = new FormData();
         confirmData.append('access_key', '95b2035d-2b3d-4a3e-9de4-f92607ab8d2d');
         confirmData.append('from_name', 'EryIT Support');
         confirmData.append('email', email);
-
         if (lang === 'sv') {
           confirmData.append('subject', 'EryIT Support — Ärende ' + ticket + ' bekräftat');
-          confirmData.append('message',
-            'Hej ' + name + ',\n\n' +
-            'Tack för att du kontaktade EryIT Support!\n\n' +
-            'Ditt ärende har registrerats med följande nummer:\n' +
-            ticket + '\n\n' +
-            'Vi svarar inom 48 timmar.\n\n' +
-            'Kontakta oss på: info@eryit.se\n\n' +
-            'Med vänliga hälsningar,\nEryIT Support\nwww.eryit.se'
-          );
+          confirmData.append('message', 'Hej ' + name + ',\n\nTack för att du kontaktade EryIT Support!\n\nDitt ärende: ' + ticket + '\n\nVi svarar inom 48 timmar.\n\ninfo@eryit.se\n\nMed vänliga hälsningar,\nEryIT Support\nwww.eryit.se');
         } else {
           confirmData.append('subject', 'EryIT Support — Ticket ' + ticket + ' confirmed');
-          confirmData.append('message',
-            'Hello ' + name + ',\n\n' +
-            'Thank you for contacting EryIT Support!\n\n' +
-            'Your ticket number is:\n' +
-            ticket + '\n\n' +
-            'We will reply within 48 hours.\n\n' +
-            'Contact us at: info@eryit.se\n\n' +
-            'Best regards,\nEryIT Support\nwww.eryit.se'
-          );
+          confirmData.append('message', 'Hello ' + name + ',\n\nThank you for contacting EryIT Support!\n\nYour ticket: ' + ticket + '\n\nWe will reply within 48 hours.\n\ninfo@eryit.se\n\nBest regards,\nEryIT Support\nwww.eryit.se');
         }
-
-        fetch('https://api.web3forms.com/submit', {
-          method: 'POST',
-          body: confirmData
-        });
-
+        fetch('https://api.web3forms.com/submit', {method:'POST', body:confirmData});
       } else {
         error.style.display = 'block';
       }
-
       btn.disabled = false;
       btn.style.opacity = '1';
     }, 400);
-
   } catch(err) {
     clearInterval(interval);
     progress.style.display = 'none';
@@ -474,6 +493,163 @@ document.getElementById('contactForm').addEventListener('submit', async function
   }
 });
 
+// ==================
+// SERVICE MODALS
+// ==================
+var SERVICES = {
+  'it-support': {
+    icon: '🖥', iconBg: '#E1F5EE',
+    sv: {
+      title: 'IT-support',
+      price: 'Från 499 kr / besök',
+      desc: 'Vi erbjuder professionell IT-support för både privatpersoner och företag i Sverige. Oavsett om du har problem med din dator, laptop, skrivare eller programvara — vi hjälper dig snabbt och effektivt, antingen på plats hos dig eller via distans.',
+      includes: ['Felsökning av dator och laptop (Windows & Mac)', 'Installation och uppdatering av program', 'Skrivare och kringutrustning', 'Microsoft 365 — installation och support', 'Active Directory och användarkonton', 'Nätverksproblem och internetanslutning', 'Rensning av långsam dator', 'Windows installation och återställning'],
+      suitable: 'Passar för: Privatpersoner, hemmakontor och småföretag som behöver snabb och pålitlig IT-hjälp utan långa väntetider.',
+      pricing: ['499 kr — Basbesök (upp till 1 timme)', '299 kr/timme — Extra tid på plats', '199 kr/timme — Distanssupport via video']
+    },
+    en: {
+      title: 'IT Support',
+      price: 'From 499 kr / visit',
+      desc: 'We offer professional IT support for both private individuals and businesses in Sweden. Whether you have problems with your computer, laptop, printer or software — we help you quickly and efficiently, either on-site or remotely.',
+      includes: ['Computer and laptop troubleshooting (Windows & Mac)', 'Software installation and updates', 'Printers and peripherals', 'Microsoft 365 — installation and support', 'Active Directory and user accounts', 'Network problems and internet connection', 'Slow computer cleanup', 'Windows installation and restore'],
+      suitable: 'Suitable for: Private individuals, home offices and small businesses that need fast and reliable IT help without long waiting times.',
+      pricing: ['499 kr — Base visit (up to 1 hour)', '299 kr/hour — Extra time on-site', '199 kr/hour — Remote support via video']
+    }
+  },
+  'wifi': {
+    icon: '📶', iconBg: '#E6F1FB',
+    sv: {
+      title: 'WiFi & Internet',
+      price: 'Från 699 kr',
+      desc: 'Har du problem med ditt WiFi eller vill du sätta upp ett nytt nätverk hemma eller på kontoret? Vi hjälper dig med allt från routerinställning till komplett nätverksinstallation — snabbt och professionellt.',
+      includes: ['Installation och konfiguration av router', 'WiFi-förstärkare och mesh-nätverk', 'Kabeldragning (nätverkskablar)', 'Säkra nätverksinställningar och lösenord', 'Felsökning av långsam internetanslutning', 'Separata gästnätverk', 'VPN-inställningar', 'Nätverksinstallation för kontor'],
+      suitable: 'Passar för: Hem, lägenheter, kontor och företag som vill ha stabil och snabb internetuppkoppling överallt.',
+      pricing: ['699 kr — Standard WiFi-installation', '999 kr — Kontorsnätverk (upp till 5 enheter)', '199 kr/timme — Extra tid och support']
+    },
+    en: {
+      title: 'WiFi & Internet',
+      price: 'From 699 kr',
+      desc: 'Having problems with your WiFi or want to set up a new network at home or in the office? We help you with everything from router setup to complete network installation — quickly and professionally.',
+      includes: ['Router installation and configuration', 'WiFi boosters and mesh networks', 'Cable installation (network cables)', 'Secure network settings and passwords', 'Slow internet connection troubleshooting', 'Separate guest networks', 'VPN settings', 'Office network installation'],
+      suitable: 'Suitable for: Homes, apartments, offices and businesses that want stable and fast internet everywhere.',
+      pricing: ['699 kr — Standard WiFi installation', '999 kr — Office network (up to 5 devices)', '199 kr/hour — Extra time and support']
+    }
+  },
+  'hardware': {
+    icon: '🔧', iconBg: '#FAEEDA',
+    sv: {
+      title: 'Hårdvaruinstallation',
+      price: 'Från 599 kr',
+      desc: 'Vi installerar och driftsätter din IT-utrustning — datorer, skärmar, skrivare och mer. Vi ser till att allt fungerar från dag ett och att du känner dig trygg med din nya utrustning.',
+      includes: ['Installation av ny dator eller laptop', 'Skärmar och dockningsstationer', 'Skrivare och multifunktionsmaskiner', 'Externa hårddiskar och USB-enheter', 'Tangentbord, möss och webbkameror', 'Överföring av data från gammal till ny dator', 'Installation av operativsystem', 'Datorupgradering (RAM, SSD)'],
+      suitable: 'Passar för: Privatpersoner som köpt ny utrustning och företag som behöver sätta upp arbetsplatser snabbt och korrekt.',
+      pricing: ['599 kr — Standard installation (1 enhet)', '299 kr — Varje extra enhet', '499 kr — Dataöverföring från gammal dator']
+    },
+    en: {
+      title: 'Hardware Installation',
+      price: 'From 599 kr',
+      desc: 'We install and set up your IT equipment — computers, screens, printers and more. We make sure everything works from day one and that you feel comfortable with your new equipment.',
+      includes: ['New computer or laptop installation', 'Monitors and docking stations', 'Printers and multifunction machines', 'External hard drives and USB devices', 'Keyboards, mice and webcams', 'Data transfer from old to new computer', 'Operating system installation', 'Computer upgrades (RAM, SSD)'],
+      suitable: 'Suitable for: Private individuals who have bought new equipment and companies that need to set up workstations quickly and correctly.',
+      pricing: ['599 kr — Standard installation (1 device)', '299 kr — Each additional device', '499 kr — Data transfer from old computer']
+    }
+  },
+  'security': {
+    icon: '🛡', iconBg: '#FBEAF0',
+    sv: {
+      title: 'Säkerhet & Backup',
+      price: 'Från 399 kr',
+      desc: 'Din digitala säkerhet är viktig. Vi skyddar din dator och dina filer mot virus, hackers och dataförlust. Med rätt backup-lösning kan du alltid återställa dina viktiga dokument och bilder.',
+      includes: ['Virusborttagning och skadlig programvara', 'Installation av antivirusprogram', 'Windows Defender-optimering', 'Molnbackup (OneDrive, Google Drive)', 'Lokal backup till extern hårddisk', 'Säkra lösenord och lösenordshanterare', 'Uppdatering av Windows och program', 'Råd om säker internetanvändning'],
+      suitable: 'Passar för: Alla som vill skydda sin dator och sina filer — särskilt viktigt för företag och de som har känslig information.',
+      pricing: ['399 kr — Säkerhetskontroll och antivirusinstallation', '599 kr — Komplett säkerhetspaket', '199 kr/mån — Löpande säkerhetsövervakning']
+    },
+    en: {
+      title: 'Security & Backup',
+      price: 'From 399 kr',
+      desc: 'Your digital security is important. We protect your computer and files against viruses, hackers and data loss. With the right backup solution you can always restore your important documents and photos.',
+      includes: ['Virus and malware removal', 'Antivirus software installation', 'Windows Defender optimization', 'Cloud backup (OneDrive, Google Drive)', 'Local backup to external hard drive', 'Secure passwords and password manager', 'Windows and software updates', 'Advice on safe internet use'],
+      suitable: 'Suitable for: Everyone who wants to protect their computer and files — especially important for businesses and those with sensitive information.',
+      pricing: ['399 kr — Security check and antivirus installation', '599 kr — Complete security package', '199 kr/month — Ongoing security monitoring']
+    }
+  },
+  'remote': {
+    icon: '💬', iconBg: '#E1F5EE',
+    sv: {
+      title: 'Onlinesupport',
+      price: 'Från 299 kr / timme',
+      desc: 'Behöver du snabb hjälp men kan inte vänta på ett besök? Vi löser ditt IT-problem via videomöte eller fjärrstyrning — du behöver inte lämna hemmet och vi kan hjälpa dig inom några minuter.',
+      includes: ['Support via Microsoft Teams, Zoom eller Google Meet', 'Fjärrstyrning av din dator (med ditt tillstånd)', 'Programinstallation och felsökning', 'E-post och Microsoft 365-support', 'Hjälp med inställningar och konfiguration', 'Förklaring och utbildning på distans', 'Support på svenska och engelska', 'Snabb respons — ofta samma dag'],
+      suitable: 'Passar för: Alla som behöver snabb hjälp utan väntetid. Perfekt för enklare problem som kan lösas digitalt.',
+      pricing: ['299 kr/timme — Distanssupport', '199 kr — Upp till 30 minuter', 'Ingen extra kostnad för resor']
+    },
+    en: {
+      title: 'Remote Support',
+      price: 'From 299 kr / hour',
+      desc: 'Need quick help but cannot wait for a visit? We solve your IT problem via video meeting or remote control — you do not need to leave home and we can help you within minutes.',
+      includes: ['Support via Microsoft Teams, Zoom or Google Meet', 'Remote control of your computer (with your permission)', 'Software installation and troubleshooting', 'Email and Microsoft 365 support', 'Help with settings and configuration', 'Explanation and training remotely', 'Support in Swedish and English', 'Fast response — often same day'],
+      suitable: 'Suitable for: Everyone who needs quick help without waiting time. Perfect for simpler problems that can be solved digitally.',
+      pricing: ['299 kr/hour — Remote support', '199 kr — Up to 30 minutes', 'No extra cost for travel']
+    }
+  },
+  'business': {
+    icon: '🏢', iconBg: '#FCEBEB',
+    sv: {
+      title: 'Företags-IT',
+      price: 'Från 1 499 kr / mån',
+      desc: 'Som småföretagare har du nog med att driva ditt företag — låt oss ta hand om IT:n. Vi erbjuder månadsavtal för löpande IT-support så att du alltid har en pålitlig IT-partner att ringa.',
+      includes: ['Löpande IT-support via telefon, mail och på plats', 'Underhåll av datorer och nätverk', 'Installation av ny utrustning', 'Säkerhetsövervakning och backup', 'Microsoft 365-administration', 'Prioriterad support — vi svarar alltid snabbt', 'Månadsrapport över IT-status', 'IT-rådgivning och planering'],
+      suitable: 'Passar för: Småföretag med 1–20 anställda som vill ha en fast IT-partner utan att anställa egen IT-personal.',
+      pricing: ['1 499 kr/mån — Litet företag (1–3 datorer)', '2 499 kr/mån — Medelstort (4–10 datorer)', '3 999 kr/mån — Större företag (11–20 datorer)']
+    },
+    en: {
+      title: 'Business IT',
+      price: 'From 1 499 kr / month',
+      desc: 'As a small business owner you have enough to do running your business — let us take care of the IT. We offer monthly contracts for ongoing IT support so you always have a reliable IT partner to call.',
+      includes: ['Ongoing IT support via phone, email and on-site', 'Computer and network maintenance', 'New equipment installation', 'Security monitoring and backup', 'Microsoft 365 administration', 'Priority support — we always respond quickly', 'Monthly IT status report', 'IT advice and planning'],
+      suitable: 'Suitable for: Small businesses with 1–20 employees who want a fixed IT partner without hiring their own IT staff.',
+      pricing: ['1 499 kr/month — Small business (1–3 computers)', '2 499 kr/month — Medium (4–10 computers)', '3 999 kr/month — Larger business (11–20 computers)']
+    }
+  }
+};
+
+function openService(id) {
+  var lang = getCurrentLang();
+  var s = SERVICES[id];
+  var d = s[lang];
+  document.getElementById('svcModalIcon').textContent = s.icon;
+  document.getElementById('svcModalIcon').style.background = s.iconBg;
+  document.getElementById('svcModalTitle').textContent = d.title;
+  document.getElementById('svcModalPrice').textContent = d.price;
+  document.getElementById('svcModalDesc').textContent = d.desc;
+  var includesHtml = '<div style="margin-bottom:12px;"><div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#1D9E75;font-weight:bold;margin-bottom:10px;">' + (lang==='sv'?'Vad ingår:':'What is included:') + '</div>';
+  d.includes.forEach(function(item){
+    includesHtml += '<div style="display:flex;align-items:flex-start;gap:8px;margin-bottom:6px;font-size:13px;color:#a0b4c8;"><span style="color:#1D9E75;flex-shrink:0;">✓</span>' + item + '</div>';
+  });
+  includesHtml += '</div>';
+  document.getElementById('svcModalIncludes').innerHTML = includesHtml;
+  document.getElementById('svcModalSuitable').innerHTML = '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#1D9E75;font-weight:bold;margin-bottom:6px;">' + (lang==='sv'?'Passar för:':'Suitable for:') + '</div><div style="font-size:13px;color:#a0b4c8;line-height:1.6;">' + d.suitable + '</div>';
+  var pricingHtml = '<div style="font-size:11px;text-transform:uppercase;letter-spacing:1px;color:#1D9E75;font-weight:bold;margin-bottom:10px;">' + (lang==='sv'?'Priser:':'Pricing:') + '</div>';
+  d.pricing.forEach(function(item){
+    pricingHtml += '<div style="display:flex;align-items:center;gap:8px;margin-bottom:6px;font-size:13px;color:#a0b4c8;"><span style="color:#1D9E75;">💰</span>' + item + '</div>';
+  });
+  document.getElementById('svcModalPricing').innerHTML = pricingHtml;
+  document.getElementById('serviceModal').style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeService() {
+  document.getElementById('serviceModal').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+document.getElementById('serviceModal').addEventListener('click', function(e) {
+  if (e.target === this) closeService();
+});
+
+// ==================
+// LANGUAGE
+// ==================
 function setLang(lang) {
   var svItems = document.querySelectorAll('.sv-text');
   var enItems = document.querySelectorAll('.en-text');
@@ -494,205 +670,80 @@ function setLang(lang) {
   }
 }
 setLang('sv');
-</script>
-   
-   
 
-   
-    <div class="contact-info">
-      <div class="cinfo">
-        <div class="cinfo-ico">📧</div>
-        <div class="cinfo-lbl">Skicka E-post / Send Email</div>
-        <div class="cinfo-val">info@eryit.se</div>
-      </div>
-      <div class="cinfo">
-        <div class="cinfo-ico">📍</div>
-        <div class="cinfo-lbl"><span class="sv-text">Plats</span><span class="en-text" style="display:none">Location</span></div>
-        <div class="cinfo-val">Göteborg, Sverige</div>
-      </div>
-      <div class="cinfo">
-        <div class="cinfo-ico">🕐</div>
-        <div class="cinfo-lbl"><span class="sv-text">Öppettider</span><span class="en-text" style="display:none">Hours</span></div>
-        <div class="cinfo-val">Mån–Fre 8–18</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <div class="footer-top">
-    <div class="footer-logo">
-      <img src="/images/logo.png" alt="EryIT Logo" onerror="this.style.display='none'">
-      <div class="footer-logo-text">Ery<span>IT</span>.se</div>
-    </div>
-    <div class="footer-links">
-      <a href="#tjanster"><span class="sv-text">Tjänster</span><span class="en-text" style="display:none">Services</span></a>
-      <a href="#om-oss"><span class="sv-text">Om oss</span><span class="en-text" style="display:none">About</span></a>
-      <a href="#kontakt">Kontakt</a>
-    </div>
-  </div>
-  <div class="footer-copy">© 2025 EryIT.se - <span class="sv-text">Professionella IT-tjänster i Sverige</span><span class="en-text" style="display:none">Professional IT services in Sweden</span></div>
-</footer>
-
-<script>
-function setLang(lang) {
-  var svItems = document.querySelectorAll('.sv-text');
-  var enItems = document.querySelectorAll('.en-text');
-  var btns = document.querySelectorAll('.lang-btn');
-  var i;
-  if (lang === 'sv') {
-    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'inline'; }
-    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'none'; }
-    btns[0].classList.add('active');
-    btns[1].classList.remove('active');
-    document.documentElement.lang = 'sv';
-  } else {
-    for (i = 0; i < svItems.length; i++) { svItems[i].style.display = 'none'; }
-    for (i = 0; i < enItems.length; i++) { enItems[i].style.display = 'inline'; }
-    btns[0].classList.remove('active');
-    btns[1].classList.add('active');
-    document.documentElement.lang = 'en';
-  }
-}
-setLang('sv');
-</script>
-
-
-
-
-<script>
+// ==================
+// ANIMATED BACKGROUND
+// ==================
 const canvas = document.getElementById('heroCanvas');
 const ctx = canvas.getContext('2d');
-
-function resize() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-}
+function resize() { canvas.width = canvas.offsetWidth; canvas.height = canvas.offsetHeight; }
 resize();
 window.addEventListener('resize', resize);
-
 const nodeCount = 28;
 const nodes = [];
 for (let i = 0; i < nodeCount; i++) {
-  nodes.push({
-    x: Math.random() * canvas.width,
-    y: Math.random() * canvas.height,
-    vx: (Math.random() - 0.5) * 0.4,
-    vy: (Math.random() - 0.5) * 0.4,
-    r: Math.random() * 2.5 + 1.5,
-    pulse: Math.random() * Math.PI * 2,
-    type: Math.floor(Math.random() * 3)
-  });
+  nodes.push({x:Math.random()*canvas.width, y:Math.random()*canvas.height, vx:(Math.random()-0.5)*0.4, vy:(Math.random()-0.5)*0.4, r:Math.random()*2.5+1.5, pulse:Math.random()*Math.PI*2, type:Math.floor(Math.random()*3)});
 }
-
 const packets = [];
 for (let i = 0; i < 12; i++) {
-  packets.push({
-    progress: Math.random(),
-    fromIdx: Math.floor(Math.random() * nodeCount),
-    toIdx: Math.floor(Math.random() * nodeCount),
-    speed: 0.003 + Math.random() * 0.004,
-    color: Math.random() > 0.5 ? '#1D9E75' : '#4a9eff'
-  });
+  packets.push({progress:Math.random(), fromIdx:Math.floor(Math.random()*nodeCount), toIdx:Math.floor(Math.random()*nodeCount), speed:0.003+Math.random()*0.004, color:Math.random()>0.5?'#1D9E75':'#4a9eff'});
 }
-
 const clouds = [
-  {x:0.15, y:0.25, r:80, vx:0.12, vy:0.04, color:'rgba(29,158,117,0.04)'},
-  {x:0.75, y:0.6, r:100, vx:-0.08, vy:0.06, color:'rgba(29,158,117,0.05)'},
-  {x:0.5, y:0.15, r:70, vx:0.06, vy:0.08, color:'rgba(74,158,255,0.04)'},
-  {x:0.85, y:0.2, r:60, vx:-0.1, vy:0.05, color:'rgba(29,158,117,0.03)'},
+  {x:0.15,y:0.25,r:80,vx:0.12,vy:0.04,color:'rgba(29,158,117,0.04)'},
+  {x:0.75,y:0.6,r:100,vx:-0.08,vy:0.06,color:'rgba(29,158,117,0.05)'},
+  {x:0.5,y:0.15,r:70,vx:0.06,vy:0.08,color:'rgba(74,158,255,0.04)'},
+  {x:0.85,y:0.2,r:60,vx:-0.1,vy:0.05,color:'rgba(29,158,117,0.03)'}
 ];
-
 function draw() {
-  canvas.width = canvas.offsetWidth;
-  canvas.height = canvas.offsetHeight;
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-  clouds.forEach(c => {
-    c.x += c.vx * 0.001;
-    c.y += c.vy * 0.001;
-    if (c.x < -0.2) c.x = 1.2;
-    if (c.x > 1.2) c.x = -0.2;
-    if (c.y < -0.2) c.y = 1.2;
-    if (c.y > 1.2) c.y = -0.2;
-    const grd = ctx.createRadialGradient(
-      c.x*canvas.width, c.y*canvas.height, 0,
-      c.x*canvas.width, c.y*canvas.height, c.r*(canvas.width/600)
-    );
-    grd.addColorStop(0, c.color);
-    grd.addColorStop(1, 'transparent');
-    ctx.beginPath();
-    ctx.arc(c.x*canvas.width, c.y*canvas.height, c.r*(canvas.width/600), 0, Math.PI*2);
-    ctx.fillStyle = grd;
-    ctx.fill();
+  canvas.width=canvas.offsetWidth; canvas.height=canvas.offsetHeight;
+  ctx.clearRect(0,0,canvas.width,canvas.height);
+  clouds.forEach(c=>{
+    c.x+=c.vx*0.001; c.y+=c.vy*0.001;
+    if(c.x<-0.2)c.x=1.2; if(c.x>1.2)c.x=-0.2;
+    if(c.y<-0.2)c.y=1.2; if(c.y>1.2)c.y=-0.2;
+    const grd=ctx.createRadialGradient(c.x*canvas.width,c.y*canvas.height,0,c.x*canvas.width,c.y*canvas.height,c.r*(canvas.width/600));
+    grd.addColorStop(0,c.color); grd.addColorStop(1,'transparent');
+    ctx.beginPath(); ctx.arc(c.x*canvas.width,c.y*canvas.height,c.r*(canvas.width/600),0,Math.PI*2);
+    ctx.fillStyle=grd; ctx.fill();
   });
-
-  nodes.forEach(n => {
-    n.x += n.vx;
-    n.y += n.vy;
-    n.pulse += 0.03;
-    if (n.x < 0 || n.x > canvas.width) n.vx *= -1;
-    if (n.y < 0 || n.y > canvas.height) n.vy *= -1;
+  nodes.forEach(n=>{
+    n.x+=n.vx; n.y+=n.vy; n.pulse+=0.03;
+    if(n.x<0||n.x>canvas.width)n.vx*=-1;
+    if(n.y<0||n.y>canvas.height)n.vy*=-1;
   });
-
-  for (let i = 0; i < nodes.length; i++) {
-    for (let j = i+1; j < nodes.length; j++) {
-      const dx = nodes[i].x - nodes[j].x;
-      const dy = nodes[i].y - nodes[j].y;
-      const dist = Math.sqrt(dx*dx + dy*dy);
-      if (dist < 130) {
-        const alpha = (1 - dist/130) * 0.25;
-        ctx.beginPath();
-        ctx.moveTo(nodes[i].x, nodes[i].y);
-        ctx.lineTo(nodes[j].x, nodes[j].y);
-        ctx.strokeStyle = 'rgba(29,158,117,'+alpha+')';
-        ctx.lineWidth = 0.8;
-        ctx.stroke();
+  for(let i=0;i<nodes.length;i++){
+    for(let j=i+1;j<nodes.length;j++){
+      const dx=nodes[i].x-nodes[j].x, dy=nodes[i].y-nodes[j].y;
+      const dist=Math.sqrt(dx*dx+dy*dy);
+      if(dist<130){
+        const alpha=(1-dist/130)*0.25;
+        ctx.beginPath(); ctx.moveTo(nodes[i].x,nodes[i].y); ctx.lineTo(nodes[j].x,nodes[j].y);
+        ctx.strokeStyle='rgba(29,158,117,'+alpha+')'; ctx.lineWidth=0.8; ctx.stroke();
       }
     }
   }
-
-  packets.forEach(p => {
-    p.progress += p.speed;
-    if (p.progress >= 1) {
-      p.progress = 0;
-      p.fromIdx = p.toIdx;
-      p.toIdx = Math.floor(Math.random() * nodeCount);
-    }
-    const from = nodes[p.fromIdx];
-    const to = nodes[p.toIdx];
-    const px = from.x + (to.x - from.x) * p.progress;
-    const py = from.y + (to.y - from.y) * p.progress;
-    ctx.beginPath();
-    ctx.arc(px, py, 2.5, 0, Math.PI*2);
-    ctx.fillStyle = p.color;
-    ctx.shadowBlur = 8;
-    ctx.shadowColor = p.color;
-    ctx.fill();
-    ctx.shadowBlur = 0;
+  packets.forEach(p=>{
+    p.progress+=p.speed;
+    if(p.progress>=1){p.progress=0;p.fromIdx=p.toIdx;p.toIdx=Math.floor(Math.random()*nodeCount);}
+    const from=nodes[p.fromIdx], to=nodes[p.toIdx];
+    const px=from.x+(to.x-from.x)*p.progress, py=from.y+(to.y-from.y)*p.progress;
+    ctx.beginPath(); ctx.arc(px,py,2.5,0,Math.PI*2);
+    ctx.fillStyle=p.color; ctx.shadowBlur=8; ctx.shadowColor=p.color; ctx.fill(); ctx.shadowBlur=0;
   });
-
-  nodes.forEach(n => {
-    const pulse = Math.sin(n.pulse) * 0.5 + 0.5;
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r+3+pulse*2, 0, Math.PI*2);
-    ctx.fillStyle = 'rgba(29,158,117,'+(0.05+pulse*0.08)+')';
-    ctx.fill();
-    ctx.beginPath();
-    ctx.arc(n.x, n.y, n.r, 0, Math.PI*2);
-    if (n.type === 0) ctx.fillStyle = '#1D9E75';
-    else if (n.type === 1) ctx.fillStyle = '#4a9eff';
-    else ctx.fillStyle = '#ffffff';
-    ctx.globalAlpha = 0.7 + pulse*0.3;
-    ctx.fill();
-    ctx.globalAlpha = 1;
+  nodes.forEach(n=>{
+    const pulse=Math.sin(n.pulse)*0.5+0.5;
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r+3+pulse*2,0,Math.PI*2);
+    ctx.fillStyle='rgba(29,158,117,'+(0.05+pulse*0.08)+')'; ctx.fill();
+    ctx.beginPath(); ctx.arc(n.x,n.y,n.r,0,Math.PI*2);
+    if(n.type===0)ctx.fillStyle='#1D9E75';
+    else if(n.type===1)ctx.fillStyle='#4a9eff';
+    else ctx.fillStyle='#ffffff';
+    ctx.globalAlpha=0.7+pulse*0.3; ctx.fill(); ctx.globalAlpha=1;
   });
-
   requestAnimationFrame(draw);
 }
 draw();
 </script>
-
 
 </body>
 </html>
